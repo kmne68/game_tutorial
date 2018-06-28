@@ -8,6 +8,9 @@ package data;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import static org.lwjgl.opengl.GL11.*;
+
+import static helpers.Artist.*;
 
 /**
  *
@@ -15,15 +18,34 @@ import org.lwjgl.opengl.DisplayMode;
  */
 public class Boot {
     
+//    private static int WIDTH = 400;
+//    private static int HEIGHT = 600;
+    
     public Boot() {
-        Display.setTitle("Tower Defense");
+
+        BeginSession();
         
-        try {
-            Display.setDisplayMode(new DisplayMode(600, 400));
-            Display.create();
-        } catch (LWJGLException e) {
-            e.printStackTrace();
+        float x = 100;
+        float y = 100;
+        float width = 50;
+        float height = 50;
+    
+        // Game loop
+        while(!Display.isCloseRequested()) {
+            
+            glBegin(GL_LINES);
+            glVertex2f(10, 10);
+            glVertex2f(100, 100);
+            glEnd();
+
+            drawQuad(50, 50, 100, 100);
+            drawQuad(150, 150, 100, 100);
+            
+            Display.update();
+            Display.sync(60);
         }
+    
+        Display.destroy();
     }
     
     public static void main (String[] args) {
