@@ -13,8 +13,12 @@ import static helpers.Artist.drawQuadTex;
  */
 public class TileGrid {
     
+    public static final int TILE_WIDTH = 64;
+    public static final int TILE_HEIGHT = 64;
+    
     private int rows = 20;
     private int cols = 15;
+    
     public Tile[][] map;
     
     public TileGrid() {
@@ -23,7 +27,23 @@ public class TileGrid {
         
         for(int row = 0; row < map.length; row++) {
             for(int col = 0; col < map[row].length; col++) {
-                map[row][col] = new Tile(row * 64, col * 64, 64, 64, TileType.Water);
+                map[row][col] = new Tile(row * TILE_HEIGHT, col * TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT, TileType.Water);
+            } 
+        }
+    }
+    
+    
+    public TileGrid(int[][] newMap) {
+        
+        map = new Tile[rows][cols];
+        
+        for(int row = 0; row < map.length; row++) {
+            for(int col = 0; col < map[row].length; col++) {
+                if(newMap[col][row] == 0) {
+                    map[row][col] = new Tile(row * TILE_HEIGHT, col * TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT, TileType.Grass);
+                } else {
+                    map[row][col] = new Tile(row * TILE_HEIGHT, col * TILE_WIDTH, TILE_WIDTH, TILE_HEIGHT, TileType.Water);
+                }
             } 
         }
     }
