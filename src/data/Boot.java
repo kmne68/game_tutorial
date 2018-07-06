@@ -11,6 +11,7 @@ import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 
 import static helpers.Artist.*;
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -24,23 +25,43 @@ public class Boot {
     
     public Boot() {
 
-        BeginSession();
+        beginSession();
         
 //        float x = 100;
 //        float y = 100;
 //        float width = 50;
 //        float height = 50;
     
-        Texture earth = loadTexture("res/earth.png", "PNG");
-        Texture grass = loadTexture("res/grass.png", "PNG");
-        Texture water = loadTexture("res/water.png", "PNG");
+        
+//        Texture earth = quickLoad("earth"); //("res/earth.png", "PNG");
+//        Texture grass = quickLoad("grass");
+//        Texture water = quickLoad("water");
+        
+//        Tile grass = new Tile(0, 0, 64, 64, TileType.Grass);
+//        Tile earth = new Tile(64, 0, 64, 64, TileType.Earth);
+//        Tile water = new Tile(128, 0, 64, 64, TileType.Water);
+        
+        TileGrid grid = new TileGrid();
+        
         
         // Game loop
         while(!Display.isCloseRequested()) {
             
-            DrawQuadTex(earth, 0, 0, 64, 64);
-            DrawQuadTex(grass, 0, 64, 64, 64);
-            DrawQuadTex(water, 0, 128, 64, 64);
+            
+            glClear(GL11.GL_COLOR_BUFFER_BIT);      // added to stop background flicker
+            
+            grid.draw();
+//            grass.drawTile();
+//            earth.drawTile();
+//            water.drawTile();
+            
+//            drawQuadTex(grass.getTexture(), grass.getX(), grass.getY(), grass.getWidth(), grass.getHeight());
+//            drawQuadTex(earth.getTexture(), earth.getX(), earth.getY(), earth.getWidth(), earth.getHeight());
+//            drawQuadTex(water.getTexture(), water.getX(), water.getY(), water.getWidth(), water.getHeight());
+            
+//            drawQuadTex(earth, 0, 0, 64, 64);
+//            drawQuadTex(grass, 0, 64, 64, 64);
+//            drawQuadTex(water, 0, 128, 64, 64);
             
 //            glBegin(GL_LINES);
 //            glVertex2f(10, 10);
@@ -49,6 +70,7 @@ public class Boot {
 
             //drawQuad(50, 50, 100, 100);
             //drawQuad(150, 150, 100, 100);
+            
             
             Display.update();
             Display.sync(60);

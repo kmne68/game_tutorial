@@ -37,7 +37,7 @@ public class Artist {
     public static final int HEIGHT = 960;
     
     
-    public static void BeginSession() {
+    public static void beginSession() {
         
         Display.setTitle("Tower Defense");
 
@@ -66,7 +66,7 @@ public class Artist {
     }
     
     
-    public static void DrawQuadTex(Texture tex, float x, float y, float width, float height) {
+    public static void drawQuadTex(Texture tex, float x, float y, float width, float height) {
         
         tex.bind();
         glTranslatef(x, y, 0);  // translates so that the quad coordinates are no longer relative to screen top left
@@ -100,5 +100,13 @@ public class Artist {
         }        
         return tex;
         
+    }
+    
+    
+    public static Texture quickLoad(String name) {
+        
+         Texture tex = null;
+         tex = loadTexture("res/" + name + ".png", "PNG");
+         return tex;
     }
 }
