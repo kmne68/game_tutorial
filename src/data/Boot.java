@@ -11,6 +11,7 @@ import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 
 import static helpers.Artist.*;
+import helpers.Clock;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 
@@ -61,17 +62,19 @@ public class Boot {
         
         TileGrid grid = new TileGrid(map);
         grid.setTile(1, 9, grid.getTile(2, 9).getType());
-        Enemy e = new Enemy(quickLoad("enemy"), grid.getTile(10, 10), 64, 64, 2);
+        Enemy e = new Enemy(quickLoad("enemy"), grid.getTile(10, 10), 64, 64, 3);
         
         // Game loop
         while(!Display.isCloseRequested()) {
-            
+
             
             glClear(GL11.GL_COLOR_BUFFER_BIT);      // added to stop background flicker
             
-            grid.draw();
+            Clock.update();
+            e.update();
             
-            e.Draw();
+            grid.draw();            
+            e.draw();
 //            grass.drawTile();
 //            earth.drawTile();
 //            water.drawTile();
