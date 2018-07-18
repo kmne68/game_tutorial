@@ -63,6 +63,8 @@ public class Boot {
         TileGrid grid = new TileGrid(map);
         grid.setTile(1, 9, grid.getTile(2, 9).getType());
         Enemy e = new Enemy(quickLoad("enemy"), grid.getTile(10, 10), 64, 64, 3);
+        Wave wave = new Wave(20, e);
+        Player player = new Player(grid);
         
         // Game loop
         while(!Display.isCloseRequested()) {
@@ -71,10 +73,12 @@ public class Boot {
             glClear(GL11.GL_COLOR_BUFFER_BIT);      // added to stop background flicker
             
             Clock.update();
-            e.update();
+//            e.update();
             
-            grid.draw();            
-            e.draw();
+            grid.draw();  
+            wave.update();
+            player.update();
+//            e.draw();
 //            grass.drawTile();
 //            earth.drawTile();
 //            water.drawTile();
