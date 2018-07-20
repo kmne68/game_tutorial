@@ -62,9 +62,9 @@ public class TileGrid {
     }
     
     
-    public Tile getTile(int xCoord, int yCoord) {
+    public Tile getTile(int xPlace, int yPlace) {
         
-        return map[xCoord][yCoord];
+        return map[xPlace][yPlace];
     }
     
     
