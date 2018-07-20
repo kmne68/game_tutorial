@@ -21,8 +21,9 @@ public class Enemy {
     private Texture texture;
     private Tile startTile;
     private boolean first = true;
+    private TileGrid grid;
     
-    public Enemy(Texture texture, Tile startTile, int width, int height, float speed) {
+    public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed) {
         
         this.texture = texture;
         this.startTile = startTile;
@@ -31,7 +32,7 @@ public class Enemy {
         this.width = width;
         this.height = height;
         this.speed = speed;
-        
+        this.grid = grid;
         
     }
     
@@ -41,9 +42,25 @@ public class Enemy {
         if(first == true)
             first = false;      // prevent first delta from being huge; set to false on first call
         else {
-            x += delta() * speed;
-    
+            if(pathContinues()) {
+                x += delta() * speed;
+            }
         }
+    }
+    
+    
+    private boolean pathContinues() {
+        
+        boolean answer = true;
+        
+        Tile currentTile = grid.getTile((int) (x / 64), (int) (y / 64)); // every 64 pixels equals a new tile so x or y divided by 64 tells us which tile we're on
+        Tile nextTile = grid.getTile((int) (x / 64) + 1, (int) (y / 64));
+        
+        if (currentTile.getType() != nextTile.getType()) {
+            answer = false;
+        }
+            
+        return answer;
     }
     
     
@@ -125,5 +142,9 @@ public class Enemy {
     }
     
     
+    public TileGrid getTileGrid() {
+        
+        return this.grid;
+    }
     
 }
