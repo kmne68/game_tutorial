@@ -62,6 +62,29 @@ public class Enemy {
     }
     
     
+    private Checkpoint findNextCheckpoint(Tile tile, int[] dir) {
+        
+        Tile next = null;
+        Checkpoint checkpoint = null;
+        boolean found = false;          // boolean to decide if next checkpoint is found
+        int counter = 1;                // integer to increment each loop
+        
+        while(!found) {
+            
+            if(tile.getType() != grid.getTile(tile.getXPlace() + dir[0] * counter, tile.getYPlace() + dir[1] * counter).getType()) {
+                
+                found = true;
+                counter -= 1;           // move counter back one to give the last tile of the previous type
+                next = grid.getTile(tile.getXPlace() + dir[0] * counter, tile.getYPlace() + dir[1] * counter);
+            }
+            
+            counter++;
+        }
+        checkpoint = new Checkpoint(next, dir[0], dir[1]);
+        return checkpoint;
+    }
+    
+    
     private int[] findNextDirection(Tile tile) {
         
         int[] dir = new int[2];

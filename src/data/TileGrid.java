@@ -72,8 +72,8 @@ public class TileGrid {
         
         for(int row = 0; row < map.length; row++) {
             for(int col = 0; col < map[row].length; col++) {
-                Tile t = map[row][col];
-                drawQuadTex(t.getTexture(), t.getX(), t.getY(), t.getWidth(), t.getHeight());
+                
+                map[row][col].drawTile();
             }
         }
         
