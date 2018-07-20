@@ -7,6 +7,8 @@ package data;
 
 import static helpers.Artist.*;
 import static helpers.Clock.*;
+import static data.Checkpoint.*;
+import java.util.ArrayList;
 import org.newdawn.slick.opengl.Texture;
 
 
@@ -23,6 +25,9 @@ public class Enemy {
     private boolean first = true;
     private TileGrid grid;
     
+    private ArrayList<Checkpoint> checkpoints;
+    private int[] directions;
+    
     public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed) {
         
         this.texture = texture;
@@ -34,6 +39,11 @@ public class Enemy {
         this.speed = speed;
         this.grid = grid;
         
+        this.checkpoints = new ArrayList<Checkpoint>();
+        this.directions = new int[2];
+        this.directions[0] = 0;
+        this.directions[1] = 0;
+        directions = findNextDirection(startTile);
     }
     
     
@@ -42,13 +52,45 @@ public class Enemy {
         if(first == true)
             first = false;      // prevent first delta from being huge; set to false on first call
         else {
-            if(pathContinues()) {
-                x += delta() * speed;
-            }
+            
+            x += delta() * directions[0];
+            y += delta() * directions[1];
+//            if(pathContinues()) {
+//                x += delta() * speed;
+//            }
         }
     }
     
     
+    private int[] findNextDirection(Tile tile) {
+        
+        int[] dir = new int[2];
+        
+        Tile up =    grid.getTile(tile.getXPlace(), tile.getYPlace() - 1);
+        Tile right = grid.getTile(tile.getXPlace() + 1, tile.getYPlace());
+        Tile down =  grid.getTile(tile.getXPlace(), tile.getYPlace() + 1);
+        Tile left =  grid.getTile(tile.getXPlace() - 1, tile.getYPlace());
+        
+        if(tile.getType() == up.getType()) {
+            dir[0] = 0;
+            dir[1] = -1;
+        } else if(tile.getType() == right.getType()) {
+            dir[0] = 1;
+            dir[1] = 0;
+        } else if(tile.getType() == down.getType()) {
+            dir[0] = 0;
+            dir[1] = 1;
+        } else if(tile.getType() == left.getType()) {
+            dir[0] = -1;
+            dir[1] = 0;
+        } else {
+            System.out.println("NO DIRECTION FOUND");
+        }
+        
+        return dir;
+    }
+    
+    /*
     private boolean pathContinues() {
         
         boolean answer = true;
@@ -62,6 +104,7 @@ public class Enemy {
             
         return answer;
     }
+*/
     
     
     public void draw() {

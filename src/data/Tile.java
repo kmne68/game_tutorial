@@ -42,6 +42,21 @@ public class Tile {
     public float getX() {
         return x;
     }
+    
+    
+    // adjust for tile width
+    public int getXPlace() {
+        
+        return (int) x / 64;
+    }
+    
+    
+    // adjust for tile height
+    public int getYPlace() {
+        
+        return (int) y / 64;
+    }
+    
 
     /**
      * @param x the x to set
