@@ -18,7 +18,7 @@ import org.newdawn.slick.opengl.Texture;
  */
 public class Enemy {
     
-    private int width, height, health;
+    private int width, height, health, currentCheckpoint;
     private float speed, x, y;
     private Texture texture;
     private Tile startTile;
@@ -43,7 +43,10 @@ public class Enemy {
         this.directions = new int[2];
         this.directions[0] = 0;
         this.directions[1] = 0;
+        this.currentCheckpoint = 0;
         directions = findNextDirection(startTile);
+        this.currentCheckpoint = 0;
+        populateCheckpointList();
     }
     
     
@@ -53,14 +56,63 @@ public class Enemy {
             first = false;      // prevent first delta from being huge; set to false on first call
         else {
             
-            x += delta() * directions[0];
-            y += delta() * directions[1];
+            if(checkpointReached()) {
+                currentCheckpoint++;
+            } else {
+                
+                x += delta() * checkpoints.get(currentCheckpoint).getxDirection() * speed;
+                y += delta() * checkpoints.get(currentCheckpoint).getyDirection() * speed;
+            }
+            
 //            if(pathContinues()) {
 //                x += delta() * speed;
 //            }
         }
     }
     
+    
+    private boolean checkpointReached() {
+        
+        boolean reached = false;
+        
+        Tile tile = checkpoints.get(currentCheckpoint).getTile();
+        
+        // check whether enemy reached checkpoint within a variance of 3 
+        if(x > tile.getX() - 3 &&
+                x < tile.getX() + 3 && 
+                y > tile.getY() - 3 && 
+                y < tile.getY() + 3) {
+            
+            reached = true;
+            x = tile.getX();
+            y = tile.getY();
+        }
+        
+        return reached;
+    }
+    
+    
+    private void populateCheckpointList() {
+        
+        // first checkpoint is a special case
+        checkpoints.add(findNextCheckpoint(startTile, findNextDirection(startTile)));
+        
+        // find remaining checkpoints
+        int counter = 0;
+        boolean cont = true;
+        while(cont) {
+            
+            int[] currentDirection = findNextDirection(checkpoints.get(counter).getTile());
+            // check if a next direction/checkpoint exists, end after 20 checkpoints (arbitrary)
+            if(currentDirection[0] == 2 || counter == 20) {
+                cont = false;
+            } else {
+                checkpoints.add(findNextCheckpoint(checkpoints.get(counter).getTile(), 
+                        directions = findNextDirection(checkpoints.get(counter).getTile())));
+            }
+            counter++;
+        }
+    }
     
     private Checkpoint findNextCheckpoint(Tile tile, int[] dir) {
         
@@ -107,6 +159,8 @@ public class Enemy {
             dir[0] = -1;
             dir[1] = 0;
         } else {
+            dir[0] = 2;
+            dir[1] = 2;
             System.out.println("NO DIRECTION FOUND");
         }
         
