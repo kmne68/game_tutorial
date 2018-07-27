@@ -41,8 +41,8 @@ public class Enemy {
         
         this.checkpoints = new ArrayList<Checkpoint>();
         this.directions = new int[2];
-        this.directions[0] = 0;
-        this.directions[1] = 0;
+        this.directions[0] = 0;     // x direction
+        this.directions[1] = 0;     // y direction
         this.currentCheckpoint = 0;
         directions = findNextDirection(startTile);
         this.currentCheckpoint = 0;
@@ -57,7 +57,11 @@ public class Enemy {
         else {
             
             if(checkpointReached()) {
-                currentCheckpoint++;
+                if(currentCheckpoint + 1 == checkpoints.size()) {
+                    System.out.println("Enemy reached end of maze.");
+                } else {
+                    currentCheckpoint++;  
+                }
             } else {
                 
                 x += delta() * checkpoints.get(currentCheckpoint).getxDirection() * speed;
@@ -94,6 +98,8 @@ public class Enemy {
     
     private void populateCheckpointList() {
         
+        directions = findNextDirection(startTile);
+        
         // first checkpoint is a special case
         checkpoints.add(findNextCheckpoint(startTile, findNextDirection(startTile)));
         
@@ -113,6 +119,7 @@ public class Enemy {
             counter++;
         }
     }
+    
     
     private Checkpoint findNextCheckpoint(Tile tile, int[] dir) {
         
@@ -138,7 +145,7 @@ public class Enemy {
     
     
     private int[] findNextDirection(Tile tile) {
-        
+        // find which direction we are going to head once we hit a checkpoint
         int[] dir = new int[2];
         
         Tile up =    grid.getTile(tile.getXPlace(), tile.getYPlace() - 1);
@@ -146,16 +153,16 @@ public class Enemy {
         Tile down =  grid.getTile(tile.getXPlace(), tile.getYPlace() + 1);
         Tile left =  grid.getTile(tile.getXPlace() - 1, tile.getYPlace());
         
-        if(tile.getType() == up.getType()) {
+        if(tile.getType() == up.getType() && directions[1] != 1) {
             dir[0] = 0;
             dir[1] = -1;
-        } else if(tile.getType() == right.getType()) {
+        } else if(tile.getType() == right.getType() && directions[0] != -1) {
             dir[0] = 1;
             dir[1] = 0;
-        } else if(tile.getType() == down.getType()) {
+        } else if(tile.getType() == down.getType() && directions[1] != -1) {
             dir[0] = 0;
             dir[1] = 1;
-        } else if(tile.getType() == left.getType()) {
+        } else if(tile.getType() == left.getType() && directions[0] != 1) {
             dir[0] = -1;
             dir[1] = 0;
         } else {
