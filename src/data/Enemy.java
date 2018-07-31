@@ -98,10 +98,10 @@ public class Enemy {
     
     private void populateCheckpointList() {
         
-        directions = findNextDirection(startTile);
+        //directions = findNextDirection(startTile);
         
         // first checkpoint is a special case
-        checkpoints.add(findNextCheckpoint(startTile, findNextDirection(startTile)));
+        checkpoints.add(findNextCheckpoint(startTile, directions = findNextDirection(startTile)));
         
         // find remaining checkpoints
         int counter = 0;
