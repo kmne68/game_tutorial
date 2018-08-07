@@ -31,6 +31,11 @@ public class Clock {
         int delta = (int) (currentTime - lastFrame);
         lastFrame = getTime();
         
+        // System.out.println(delta * 0.01f);
+        
+        if(delta * 0.01f > 0.5f) {
+            return 0.5f;
+        }
         return delta * 0.01f;
     }
     

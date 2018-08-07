@@ -13,7 +13,8 @@ public enum TileType {
     
     Grass("grass", true),
     Earth("earth", true),
-    Water("water", false);
+    Water("water", false),
+    NULL("water", false);
     
     String textureName;
     boolean buildable;
