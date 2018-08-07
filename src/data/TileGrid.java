@@ -16,14 +16,16 @@ public class TileGrid {
     public static final int TILE_WIDTH = 64;
     public static final int TILE_HEIGHT = 64;
     
-    private int rows = 20;
-    private int cols = 15;
+//    private int rows = 20;
+//    private int cols = 15;
+    
+    private int tilesWide, tilesHigh;
     
     public Tile[][] map;
     
     public TileGrid() {
-        
-        map = new Tile[rows][cols];
+                
+        map = new Tile[tilesWide][tilesHigh];
         
         for(int row = 0; row < map.length; row++) {
             for(int col = 0; col < map[row].length; col++) {
@@ -35,7 +37,10 @@ public class TileGrid {
     
     public TileGrid(int[][] newMap) {
         
-        map = new Tile[rows][cols];
+        this.tilesWide = newMap[0].length;
+        this.tilesHigh = newMap.length;
+        
+        map = new Tile[tilesWide][tilesHigh];
         
         for(int row = 0; row < map.length; row++) {
             for(int col = 0; col < map[row].length; col++) {
@@ -64,7 +69,13 @@ public class TileGrid {
     
     public Tile getTile(int xPlace, int yPlace) {
         
-        return map[xPlace][yPlace];
+        if(xPlace < getTilesWide() && yPlace < getTilesHigh() && xPlace > -1 && yPlace > -1) {
+        
+            return map[xPlace][yPlace];
+    
+        } else {
+            return new Tile(0, 0, 0, 0, TileType.NULL);
+        }
     }
     
     
@@ -77,5 +88,33 @@ public class TileGrid {
             }
         }
         
+    }
+
+    /**
+     * @return the tilesWide
+     */
+    public int getTilesWide() {
+        return tilesWide;
+    }
+
+    /**
+     * @param tilesWide the tilesWide to set
+     */
+    public void setTilesWide(int tilesWide) {
+        this.tilesWide = tilesWide;
+    }
+
+    /**
+     * @return the tilesHigh
+     */
+    public int getTilesHigh() {
+        return tilesHigh;
+    }
+
+    /**
+     * @param tilesHigh the tilesHigh to set
+     */
+    public void setTilesHigh(int tilesHigh) {
+        this.tilesHigh = tilesHigh;
     }
 }
