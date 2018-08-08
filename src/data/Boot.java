@@ -66,6 +66,8 @@ public class Boot {
         Wave wave = new Wave(20, e);
         Player player = new Player(grid);
         
+        TowerCannon tower = new TowerCannon(quickLoad("cannonBase"), grid.getTile(10, 8), 10);
+        
         // Game loop
         while(!Display.isCloseRequested()) {
 
@@ -78,6 +80,7 @@ public class Boot {
             grid.draw();  
             wave.update();
             player.update();
+            tower.draw();
 //            e.draw();
 //            grass.drawTile();
 //            earth.drawTile();
