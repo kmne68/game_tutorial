@@ -60,27 +60,32 @@ public class Boot {
 //        Tile earth = new Tile(64, 0, 64, 64, TileType.Earth);
 //        Tile water = new Tile(128, 0, 64, 64, TileType.Water);
         
-        TileGrid grid = new TileGrid(map);
-        //grid.setTile(1, 9, grid.getTile(2, 9).getType());
-        Enemy e = new Enemy(quickLoad("enemy"), grid.getTile(10, 8), grid, 64, 64, 6);
-        Wave wave = new Wave(20, e);
-        Player player = new Player(grid);
-        
-        TowerCannon tower = new TowerCannon(quickLoad("cannonBase"), grid.getTile(10, 8), 10);
+//        TileGrid grid = new TileGrid(map);
+//        //grid.setTile(1, 9, grid.getTile(2, 9).getType());
+//        Enemy e = new Enemy(quickLoad("enemy"), grid.getTile(10, 8), grid, 64, 64, 6);
+//        Wave wave = new Wave(20, e);
+//        Player player = new Player(grid);
+//        
+//        TowerCannon tower = new TowerCannon(quickLoad("cannonBase"), grid.getTile(10, 8), 10);
         
         // Game loop
+        Game game = new Game(map);
+        
         while(!Display.isCloseRequested()) {
 
             
             glClear(GL11.GL_COLOR_BUFFER_BIT);      // added to stop background flicker
             
             Clock.update();
+            
+            game.update();
+            
 //            e.update();
             
-            grid.draw();  
-            wave.update();
-            player.update();
-            tower.update();
+//            grid.draw();  
+//            wave.update();
+//            player.update();
+//            tower.update();
 //            e.draw();
 //            grass.drawTile();
 //            earth.drawTile();

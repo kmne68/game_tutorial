@@ -24,6 +24,7 @@ import static org.lwjgl.opengl.GL11.glEnd;
 import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glMatrixMode;
 import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
 import static org.lwjgl.opengl.GL11.glVertex2f;
@@ -76,6 +77,31 @@ public class Artist {
         
         tex.bind();
         glTranslatef(x, y, 0);  // translates so that the quad coordinates are no longer relative to screen top left
+        glBegin(GL_QUADS);
+        glTexCoord2f(0, 0);     // top left
+        glVertex2f(0, 0);       // top left
+        
+        glTexCoord2f(1, 0);     // top right
+        glVertex2f(width, 0);       // top right
+        
+        glTexCoord2f(1, 1);         // bottom right
+        glVertex2f(width, height);  // bottom right     
+        
+        glTexCoord2f(0, 1);         // bottom left
+        glVertex2f(0, height);      // bottom left
+        
+        glEnd();
+        glLoadIdentity();
+        
+    }
+    
+    
+        public static void drawQuadTexRotate(Texture tex, float x, float y, float width, float height, float angle) {
+        
+        tex.bind();
+        glTranslatef(x + width / 2, y + height / 2, 0);  // translates so that the quad coordinates are no longer relative to screen top left
+        glRotatef(angle, 0, 0, 1);
+        glTranslatef(-width / 2, -height / 2, 0);
         glBegin(GL_QUADS);
         glTexCoord2f(0, 0);     // top left
         glVertex2f(0, 0);       // top left
