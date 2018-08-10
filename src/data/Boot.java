@@ -80,7 +80,7 @@ public class Boot {
             grid.draw();  
             wave.update();
             player.update();
-            tower.draw();
+            tower.update();
 //            e.draw();
 //            grass.drawTile();
 //            earth.drawTile();
