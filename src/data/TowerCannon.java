@@ -43,7 +43,7 @@ public class TowerCannon {
     public void draw() {
         
         drawQuadTex(baseTexture, x, y, width, height);
-        drawQuadTex(cannonTexture, x, y, width, height);
+        drawQuadTexRotate(cannonTexture, x, y, width, height, 45);
     }
     
     public void shoot() {
