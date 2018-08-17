@@ -15,7 +15,7 @@ public class Game {
     
     private TileGrid grid;
     private Player player;
-    private Wave wave;
+    private WaveManager waveManager;
     
     // Temp variables
     TowerCannon tower;
@@ -25,7 +25,8 @@ public class Game {
         
         grid = new TileGrid(map);
         player = new Player(grid);
-        wave = new Wave(20, new Enemy(quickLoad("enemy"), grid.getTile(10, 8), grid, 64, 64, 6));
+        waveManager = new WaveManager(new Enemy(quickLoad("enemy"), grid.getTile(10, 8), grid, 64, 64, 70), 2, 2);
+        
         
         tower = new TowerCannon(quickLoad("cannonBase"), grid.getTile(10, 8), 10);
     }
@@ -34,7 +35,7 @@ public class Game {
     public void update() {
         
         grid.draw();
-        wave.update();
+        waveManager.update();
         player.update();
         tower.update();
     }
