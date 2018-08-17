@@ -33,10 +33,10 @@ public class Clock {
         
         // System.out.println(delta * 0.01f);
         
-        if(delta * 0.01f > 0.5f) {
-            return 0.5f;
+        if(delta * 0.001f > 0.05f) {
+            return 0.05f;
         }
-        return delta * 0.01f;
+        return delta * 0.001f;
     }
     
     

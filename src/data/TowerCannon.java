@@ -34,7 +34,7 @@ public class TowerCannon {
         this.damage = damage;
         this.width = (int) startTile.getWidth();
         this.height = (int) startTile.getHeight();
-        this.firingSpeed = 30;
+        this.firingSpeed = 2;
         this.timeSinceLastShot = 0;
         this.projectiles = new ArrayList<Projectile>();
     }
@@ -49,7 +49,7 @@ public class TowerCannon {
     public void shoot() {
         
         timeSinceLastShot = 0;
-        projectiles.add(new Projectile(quickLoad("bullet"), x + 32, y + 32, 5, 10));
+        projectiles.add(new Projectile(quickLoad("bullet"), x + 32, y + 32, 50, 10));
         
     }    
         
