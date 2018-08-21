@@ -18,13 +18,16 @@ import org.newdawn.slick.opengl.Texture;
 public class TowerCannon {
     
     private float x, y, timeSinceLastShot, firingSpeed;
+    private float firingAngle;
     private int width, height, damage;
     private Texture baseTexture, cannonTexture;
     private Tile startTile;
     private ArrayList<Projectile> projectiles;
+    private ArrayList<Enemy> enemies;
+    private Enemy target;
     
     
-    public TowerCannon(Texture baseTexture, Tile startTile, int damage) {
+    public TowerCannon(Texture baseTexture, Tile startTile, int damage, ArrayList<Enemy> enemies) {
         
         this.baseTexture = baseTexture;
         this.cannonTexture = quickLoad("cannonGun");
@@ -37,14 +40,34 @@ public class TowerCannon {
         this.firingSpeed = 2;
         this.timeSinceLastShot = 0;
         this.projectiles = new ArrayList<Projectile>();
+        this.enemies = enemies;
+        this.target = acquireTarget();
+        this.firingAngle = calculateAngle();
+        
     }
     
     
     public void draw() {
         
         drawQuadTex(baseTexture, x, y, width, height);
-        drawQuadTexRotate(cannonTexture, x, y, width, height, 45);
+        drawQuadTexRotate(cannonTexture, x, y, width, height, firingAngle);
     }
+    
+    
+    private Enemy acquireTarget() {
+        
+        return enemies.get(0);
+        
+    }
+    
+    
+    private float calculateAngle() {
+        
+        double angleTemp = Math.atan2(target.getY() - y, target.getX() - x);
+        
+        return (float) Math.toDegrees(angleTemp) - 90;
+    }
+    
     
     public void shoot() {
         
@@ -64,6 +87,7 @@ public class TowerCannon {
             p.update();
         }
         
+        firingAngle = calculateAngle();
         draw();
     }
 
