@@ -18,17 +18,19 @@ public class Game {
     private WaveManager waveManager;
     
     // Temp variables
-    TowerCannon tower;
+    // TowerCannon tower;
     
     
     public Game(int[][] map){
         
         grid = new TileGrid(map);
-        player = new Player(grid);
         waveManager = new WaveManager(new Enemy(quickLoad("enemy"), grid.getTile(10, 8), grid, 64, 64, 70), 2, 2);
         
+        player = new Player(grid, waveManager);
         
-        tower = new TowerCannon(quickLoad("cannonBase"), grid.getTile(10, 8), 10);
+        
+        // tower used for testing
+//        tower = new TowerCannon(quickLoad("cannonBase"), grid.getTile(10, 8), 10);
     }
     
     
@@ -37,7 +39,7 @@ public class Game {
         grid.draw();
         waveManager.update();
         player.update();
-        tower.update();
+//        tower.update();   // used in testing
     }
     
 }
