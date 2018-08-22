@@ -21,6 +21,7 @@ public class Player {
     private int index;
     private WaveManager waveManager;
     private ArrayList<TowerCannon> towerList;
+    private boolean leftMouseButtonDown;
     
     
     public Player(TileGrid grid, WaveManager waveManager) {
@@ -33,6 +34,7 @@ public class Player {
         this.index = 0;
         this.waveManager = waveManager;
         this.towerList = new ArrayList<TowerCannon>();
+        this.leftMouseButtonDown = false;
         
     }
     
@@ -51,9 +53,14 @@ public class Player {
         }
         
         // handle Mouse input
-        if (Mouse.isButtonDown(0)) {
-            setTile();
+        if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
+            
+            towerList.add(new TowerCannon(quickLoad("cannonbase"), grid.getTile(Mouse.getX() / 64, (HEIGHT - Mouse.getY() - 1) / 64), 10, waveManager.getCurrentWave().getEnemyList()));
+            // TEST LINE: System.out.println("Mouse button 0 down.");
+            // setTile();
         }
+        leftMouseButtonDown = Mouse.isButtonDown(0);        // this is used to ensure only one mouse click is registered per click
+        
         
         // handle Keyboard input
         while(Keyboard.next()) {
