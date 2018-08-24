@@ -12,6 +12,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import static helpers.Artist.*;
 import helpers.Clock;
+import helpers.StateManager;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.opengl.Texture;
 
@@ -69,7 +70,7 @@ public class Boot {
 //        TowerCannon tower = new TowerCannon(quickLoad("cannonBase"), grid.getTile(10, 8), 10);
         
         // Game loop
-        Game game = new Game(map);
+       // Game game = new Game(map);
         
         while(!Display.isCloseRequested()) {
 
@@ -78,7 +79,8 @@ public class Boot {
             
             Clock.update();
             
-            game.update();
+        //    game.update();
+            StateManager.update();
             
 //            e.update();
             
