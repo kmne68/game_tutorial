@@ -58,7 +58,9 @@ public class StateManager {
                 game.update();
                 break;
             case EDITOR:
-                
+                if(editor == null)
+                    editor = new Editor();
+                editor.update();
                 break;
         }
         
