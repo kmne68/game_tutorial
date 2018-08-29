@@ -25,7 +25,7 @@ public class TileGrid {
     
     public TileGrid() {
                 
-        map = new Tile[tilesWide][tilesHigh];
+        map = new Tile[TILE_WIDTH][TILE_HEIGHT];
         
         for(int row = 0; row < map.length; row++) {
             for(int col = 0; col < map[row].length; col++) {
@@ -80,7 +80,6 @@ public class TileGrid {
     
     
     public void draw() {
-        
         for(int row = 0; row < map.length; row++) {
             for(int col = 0; col < map[row].length; col++) {
                 

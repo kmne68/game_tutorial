@@ -40,13 +40,6 @@ public class Player {
     }
     
     
-    public void setTile() {
-        
-        grid.setTile((int) Math.floor(Mouse.getX() / 64), 
-                (int) Math.floor((HEIGHT - Mouse.getY() - 1) / 64), types[index]);
-    }
-    
-    
     public void update() {
         
         for(TowerCannon tc : towerList) {
@@ -77,16 +70,6 @@ public class Player {
                 towerList.add(new TowerCannon(quickLoad("cannonbase"), grid.getTile(6, 14), 10, waveManager.getCurrentWave().getEnemyList()));
             }
                 
-        }
-    }
-    
-    
-    private void moveIndex() {
-        
-        index++;
-        if(index > types.length - 1) {
-            
-            index = 0;
         }
     }
 }
