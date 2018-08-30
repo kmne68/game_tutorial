@@ -23,9 +23,12 @@ public class TileGrid {
     
     public Tile[][] map;
     
+    
     public TileGrid() {
-                
-        map = new Tile[TILE_WIDTH][TILE_HEIGHT];
+        
+        this.tilesWide = 20;
+        this.tilesHigh = 15;        
+        map = new Tile[tilesWide][tilesHigh];
         
         for(int row = 0; row < map.length; row++) {
             for(int col = 0; col < map[row].length; col++) {
