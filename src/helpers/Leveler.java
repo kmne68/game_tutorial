@@ -30,11 +30,11 @@ public class Leveler {
             for(int j = 0; j < grid.getTilesHigh(); j++) {
                 mapData += getTileID(grid.getTile(i, j));
             }
-        }
-        
-        
+        }        
+        System.out.println("mapData = " + mapData );
         try {
-            File file = new File(mapName);
+            // File file = new File("C:\\" + mapName);
+            File file = new File("C:\\Users\\Keith\\Documents\\NetBeansProjects\\game_tutorial\\" + mapName);
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             bw.write(mapData);
             bw.close();
