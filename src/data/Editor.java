@@ -6,7 +6,7 @@
 package data;
 
 import static helpers.Artist.HEIGHT;
-import static helpers.Leveler.saveMap;
+import static helpers.Leveler.*;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -64,6 +64,7 @@ public class Editor {
             }
             if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.getEventKeyState()) {
                 saveMap("MapTest", grid);
+                System.out.println("S Key pressed");
             }
         }
     }
