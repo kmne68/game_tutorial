@@ -7,8 +7,11 @@ package helpers;
 
 import data.Tile;
 import data.TileGrid;
+import data.TileType;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -19,19 +22,17 @@ import java.util.logging.Logger;
  * @author Keith
  */
 public class Leveler {
-    
-    
-    
+
     public static void saveMap(String mapName, TileGrid grid) {
-        
+
         String mapData = "";
-        
-        for(int i = 0; i < grid.getTilesWide(); i++) {
-            for(int j = 0; j < grid.getTilesHigh(); j++) {
+
+        for (int i = 0; i < grid.getTilesWide(); i++) {
+            for (int j = 0; j < grid.getTilesHigh(); j++) {
                 mapData += getTileID(grid.getTile(i, j));
             }
-        }        
-        System.out.println("mapData = " + mapData );
+        }
+        System.out.println("mapData = " + mapData);
         try {
             // File file = new File("C:\\" + mapName);
             File file = new File("C:\\Users\\Keith\\Documents\\NetBeansProjects\\game_tutorial\\" + mapName);
@@ -42,13 +43,54 @@ public class Leveler {
             ex.printStackTrace();
         }
     }
-    
-    
+
+    public static TileType getTileType(String id) {
+
+        TileType type = TileType.NULL;
+
+        switch (id) {
+            case "0":
+                type = TileType.Grass;
+                break;
+            case "1":
+                type = TileType.Earth;
+                break;
+            case "2":
+                type = TileType.Water;
+                break;
+            case "3":
+                type = TileType.NULL;
+                break;
+        }
+
+        return type;
+    }
+
+    public static TileGrid loadMap(String mapName) {
+
+        TileGrid grid = new TileGrid();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(mapName));
+            String data = br.readLine();
+            
+            for (int i = 0; i < grid.getTilesWide(); i++) {
+                for (int j = 0; j < grid.getTilesHigh(); j++) {
+                    grid.setTile(i, j, getTileType(data.substring(i * grid.getTilesHigh() + j, i * grid.getTilesHigh() + j + 1)));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return grid;
+    }
+
     public static String getTileID(Tile tile) {
-        
+
         String ID = "E";        // "E" is simply a flag that lets us know an error has occurred if the ID isn't found
-        
-        switch(tile.getType()) {
+
+        switch (tile.getType()) {
             case Grass:
                 ID = "0";
                 break;
@@ -61,11 +103,10 @@ public class Leveler {
             case NULL:
                 ID = "3";
                 break;
-                
+
         }
-        
+
         return ID;
     }
-    
-    
+
 }

@@ -23,7 +23,9 @@ public class Editor {
 
     public Editor() {
 
-        this.grid = new TileGrid();
+    //    this.grid = new TileGrid();
+        this.grid = loadMap("C:\\Users\\Keith\\Documents\\NetBeansProjects\\game_tutorial\\NewMapToRead");
+    //    this.grid = loadMap("NewMapToRead");
         this.index = 0;
         
         this.types = new TileType[3];
@@ -63,7 +65,7 @@ public class Editor {
                 moveIndex();
             }
             if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.getEventKeyState()) {
-                saveMap("MapTest", grid);
+                saveMap("NewMapToRead", grid);
                 System.out.println("S Key pressed");
             }
         }
