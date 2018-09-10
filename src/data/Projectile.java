@@ -20,11 +20,11 @@ public class Projectile {
     private float width, height;
     private float xVelocity, yVelocity;     // projectile velocity
     private float speed;
-    private int damage;
+    private int damageAmount;
     private Enemy target;
     private boolean alive;
 
-    public Projectile(Texture texture, Enemy target, float x, float y, float width, float height, float speed, int damage) {
+    public Projectile(Texture texture, Enemy target, float x, float y, float width, float height, float speed, int damageAmount) {
 
         this.texture = texture;
         this.target = target;
@@ -34,7 +34,7 @@ public class Projectile {
         this.width = width;
         this.height = height;
         this.speed = speed;
-        this.damage = damage;
+        this.damageAmount = damageAmount;
         this.xVelocity = 0f;
         this.yVelocity = 0f;
 
@@ -75,6 +75,7 @@ public class Projectile {
             y += yVelocity * speed * delta();
             if (checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(), target.getHeight())) {
 
+                target.damage(damageAmount);
                 // System.out.println("projectile hit the target");    
                 alive = false;
             }
