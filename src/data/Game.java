@@ -25,7 +25,7 @@ public class Game {
     public Game(int[][] map){
         
         grid = new TileGrid(map);
-        waveManager = new WaveManager(new Enemy(quickLoad("enemy"), grid.getTile(10, 8), grid, 64, 64, 70), 2, 2);
+        waveManager = new WaveManager(new Enemy(quickLoad("enemy"), grid.getTile(10, 8), grid, 64, 64, 70, 25), 2, 2);
         
         player = new Player(grid, waveManager);
         
