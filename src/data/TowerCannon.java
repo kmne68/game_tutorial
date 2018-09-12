@@ -19,15 +19,16 @@ public class TowerCannon {
     
     private float x, y, timeSinceLastShot, firingSpeed;
     private float firingAngle;
-    private int width, height, damage;
+    private int width, height, damage, range;
     private Texture baseTexture, cannonTexture;
     private Tile startTile;
     private ArrayList<Projectile> projectiles;
     private ArrayList<Enemy> enemies;
     private Enemy target;
+    private boolean targeted;
     
     
-    public TowerCannon(Texture baseTexture, Tile startTile, int damage, ArrayList<Enemy> enemies) {
+    public TowerCannon(Texture baseTexture, Tile startTile, int damage, int range, ArrayList<Enemy> enemies) {
         
         this.baseTexture = baseTexture;
         this.cannonTexture = quickLoad("cannonGun");
@@ -35,14 +36,16 @@ public class TowerCannon {
         this.x = startTile.getX();
         this.y = startTile.getY();
         this.damage = damage;
+        this.range = range;
         this.width = (int) startTile.getWidth();
         this.height = (int) startTile.getHeight();
         this.firingSpeed = 2;
         this.timeSinceLastShot = 0;
         this.projectiles = new ArrayList<Projectile>();
         this.enemies = enemies;
-        this.target = acquireTarget();
-        this.firingAngle = calculateAngle();
+        this.targeted = false;
+    //    this.target = acquireTarget();
+    //    this.firingAngle = calculateAngle();
         
     }
     
@@ -56,8 +59,43 @@ public class TowerCannon {
     
     private Enemy acquireTarget() {
         
-        return enemies.get(0);
+        // return enemies.get(0); // Returns first enemy of the wave
+        Enemy closest = null;
+        float closestDistance = 10000;  // 10000 is an arbitrary distance within which all enemys should exist
         
+        for(Enemy e: enemies) {
+            if(isInRange(e) && (findDistance(e) < closestDistance)) {
+                closestDistance = findDistance(e);
+                closest = e;
+            }           
+        } 
+        if(closest != null) {
+            targeted = true;
+        }
+        return closest;
+        
+    }
+    
+    
+    private boolean isInRange(Enemy e) {
+        
+        float xDistance = Math.abs(e.getX() - x);
+        float yDistance = Math.abs(e.getY() - y);
+        
+        if(xDistance < range && yDistance < range) {
+            return true;
+        } else {
+            return false;
+        }       
+    }
+    
+    
+    private float findDistance(Enemy e) {
+        
+        float xDistance = Math.abs(e.getX() - x);
+        float yDistance = Math.abs(e.getY() - y);
+        
+        return xDistance + yDistance;
     }
     
     
@@ -75,8 +113,24 @@ public class TowerCannon {
         projectiles.add(new Projectile(quickLoad("bullet"), target, (x + (Game.TILE_SIZE / 2) - (Game.TILE_SIZE / 4)), y + ((Game.TILE_SIZE / 2) - (Game.TILE_SIZE / 4)), 32, 32, 900, 10));
         
     }    
+    
+    
+    public void updateEnemyList(ArrayList<Enemy> newList) {
+        
+        enemies = newList;
+    }
+    
         
     public void update() {
+        
+        if(!targeted) {
+            target = acquireTarget();
+        }
+        
+        if(target == null || target.isAlive() == false) {
+            targeted = false;
+        }
+        
         
         timeSinceLastShot += delta();
         if(timeSinceLastShot > firingSpeed) {
