@@ -15,7 +15,7 @@ import org.newdawn.slick.opengl.Texture;
  *
  * @author kemery
  */
-public class Enemy {
+public class Enemy implements Entity {
 
     private int width, height, health, currentCheckpoint;
     private float speed, x, y;
