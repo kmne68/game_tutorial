@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import static helpers.Artist.*;
@@ -43,10 +38,7 @@ public class TowerCannon {
         this.timeSinceLastShot = 0;
         this.projectiles = new ArrayList<Projectile>();
         this.enemies = enemies;
-        this.targeted = false;
-    //    this.target = acquireTarget();
-    //    this.firingAngle = calculateAngle();
-        
+        this.targeted = false;        
     }
     
     
@@ -59,7 +51,6 @@ public class TowerCannon {
     
     private Enemy acquireTarget() {
         
-        // return enemies.get(0); // Returns first enemy of the wave
         Enemy closest = null;
         float closestDistance = 10000;  // 10000 is an arbitrary distance within which all enemys should exist
         
@@ -110,7 +101,7 @@ public class TowerCannon {
     public void shoot() {
         
         timeSinceLastShot = 0;
-        projectiles.add(new Projectile(quickLoad("bullet"), target, (x + (Game.TILE_SIZE / 2) - (Game.TILE_SIZE / 4)), y + ((Game.TILE_SIZE / 2) - (Game.TILE_SIZE / 4)), 32, 32, 900, 10));
+        projectiles.add(new Projectile(quickLoad("bullet"), target, (x + (TILE_SIZE / 2) - (TILE_SIZE / 4)), y + ((TILE_SIZE / 2) - (TILE_SIZE / 4)), 32, 32, 900, 10));
         
     }    
     

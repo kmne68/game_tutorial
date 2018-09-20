@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
+import helpers.Artist;
 import static helpers.Clock.delta;
 import static helpers.Artist.*;
 import org.newdawn.slick.opengl.Texture;
@@ -46,8 +42,8 @@ public class Projectile {
 
         float totalAllowedMovement = 1.0f;
         // x and y are position of projectile
-        float xDistanceFromTarget = Math.abs(target.getX() - x - (Game.TILE_SIZE / 4) + Game.TILE_SIZE / 2);
-        float yDistanceFromTarget = Math.abs(target.getY() - y - (Game.TILE_SIZE / 4) + Game.TILE_SIZE / 2);
+        float xDistanceFromTarget = Math.abs(target.getX() - x - (TILE_SIZE / 4) + TILE_SIZE / 2);
+        float yDistanceFromTarget = Math.abs(target.getY() - y - (TILE_SIZE / 4) + TILE_SIZE / 2);
         float totalDistanceFromTarget = xDistanceFromTarget + yDistanceFromTarget;
         float xPercentOfMovement = xDistanceFromTarget / totalDistanceFromTarget;
 

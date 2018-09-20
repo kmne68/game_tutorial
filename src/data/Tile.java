@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
-import static helpers.Artist.drawQuadTex;
-import static helpers.Artist.quickLoad;
+import static helpers.Artist.*;
 import org.newdawn.slick.opengl.Texture;
 
 /**
@@ -47,14 +41,14 @@ public class Tile {
     // adjust for tile width
     public int getXPlace() {
         
-        return (int) x / 64;
+        return (int) x / TILE_SIZE;
     }
     
     
     // adjust for tile height
     public int getYPlace() {
         
-        return (int) y / 64;
+        return (int) y / TILE_SIZE;
     }
     
 

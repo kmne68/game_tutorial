@@ -7,7 +7,6 @@ package data;
 
 import static helpers.Artist.*;
 import static helpers.Clock.*;
-import static data.Checkpoint.*;
 import java.util.ArrayList;
 import org.newdawn.slick.opengl.Texture;
 
@@ -68,10 +67,6 @@ public class Enemy implements Entity {
                 x += delta() * checkpoints.get(currentCheckpoint).getxDirection() * speed;
                 y += delta() * checkpoints.get(currentCheckpoint).getyDirection() * speed;
             }
-
-//            if(pathContinues()) {
-//                x += delta() * speed;
-//            }
         }
     }
 
@@ -97,7 +92,6 @@ public class Enemy implements Entity {
 
     private void populateCheckpointList() {
 
-        //directions = findNextDirection(startTile);
         // first checkpoint is a special case
         checkpoints.add(findNextCheckpoint(startTile, directions = findNextDirection(startTile)));
 
@@ -171,23 +165,7 @@ public class Enemy implements Entity {
         return dir;
     }
 
-    /*
-    private boolean pathContinues() {
-        
-        boolean answer = true;
-        
-        Tile currentTile = grid.getTile((int) (x / 64), (int) (y / 64)); // every 64 pixels equals a new tile so x or y divided by 64 tells us which tile we're on
-        Tile nextTile = grid.getTile((int) (x / 64) + 1, (int) (y / 64));
-        
-        if (currentTile.getType() != nextTile.getType()) {
-            answer = false;
-        }
-            
-        return answer;
-    }
-     */
-    
-    
+ 
     public void damage(int damageAmount) {
         
         health -= damageAmount;
