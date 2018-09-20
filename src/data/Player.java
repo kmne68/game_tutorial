@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import org.lwjgl.input.Mouse;
@@ -19,7 +14,6 @@ public class Player {
     
     private TileGrid grid;
     private TileType[] types;
-    private int index;
     private WaveManager waveManager;
     private ArrayList<TowerCannon> towerList;
     private boolean leftMouseButtonDown;
@@ -32,7 +26,6 @@ public class Player {
         this.types[0] = TileType.Grass;
         this.types[1] = TileType.Earth;
         this.types[2] = TileType.Water;
-        this.index = 0;
         this.waveManager = waveManager;
         this.towerList = new ArrayList<TowerCannon>();
         this.leftMouseButtonDown = false;        
@@ -49,7 +42,7 @@ public class Player {
         // handle Mouse input
         if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
             
-            towerList.add(new TowerCannon(quickLoad("cannonbase"), grid.getTile(Mouse.getX() / 64, (HEIGHT - Mouse.getY() - 1) / 64), 10, 1000, waveManager.getCurrentWave().getEnemyList()));
+            towerList.add(new TowerCannon(quickLoad("cannonbase"), grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 10, 1000, waveManager.getCurrentWave().getEnemyList()));
             // TEST LINE: System.out.println("Mouse button 0 down.");
             // setTile();
         }

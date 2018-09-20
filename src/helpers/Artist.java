@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package helpers;
 
 import java.io.IOException;
@@ -40,6 +35,7 @@ public class Artist {
     
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 960;
+    public static final int TILE_SIZE = 64;
     
     
     public static void beginSession() {

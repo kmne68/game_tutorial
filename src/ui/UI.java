@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ui;
 
 import static helpers.Artist.*;
 import java.util.ArrayList;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.opengl.Texture;
 
 /**
  *
@@ -21,7 +15,7 @@ public class UI {
     
     public UI() {
         
-        buttonList = new ArrayList<Button>();
+        buttonList = new ArrayList<>();
     }
     
     public void addButton(String name, String textureName, int x, int y) {

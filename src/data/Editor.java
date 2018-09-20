@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
-import static helpers.Artist.HEIGHT;
+import static helpers.Artist.*;
 import static helpers.Leveler.*;
 
 import org.lwjgl.input.Keyboard;
@@ -45,8 +40,8 @@ public class Editor {
 
     private void setTile() {
 
-        grid.setTile((int) Math.floor(Mouse.getX() / 64),
-                (int) Math.floor((HEIGHT - Mouse.getY() - 1) / 64), types[index]);
+        grid.setTile((int) Math.floor(Mouse.getX() / TILE_SIZE),
+                (int) Math.floor((HEIGHT - Mouse.getY() - 1) / TILE_SIZE), types[index]);
     }
 
     public void update() {

@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import java.util.ArrayList;
 
 import static helpers.Clock.*;
+import static helpers.Artist.*;
 
 /**
  *
@@ -62,7 +58,7 @@ public class Wave {
 
     private void spawn() {
 
-        enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getTileGrid(), 64, 64, enemyType.getSpeed(), enemyType.getHealth()));
+        enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getTileGrid(), TILE_SIZE, TILE_SIZE, enemyType.getSpeed(), enemyType.getHealth()));
     }
 
     public boolean isCompleted() {
