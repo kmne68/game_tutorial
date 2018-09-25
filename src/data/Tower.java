@@ -1,13 +1,29 @@
 package data;
 
+import org.newdawn.slick.opengl.Texture;
+import static helpers.Artist.drawQuadTex;
+
 /**
  *
  * @author Keith
  */
-public class Tower implements Entity {
+public abstract class Tower implements Entity {
 
     private float x, y;
     private int width, height;
+    private Enemy target;
+    private int damage;
+    private Texture texture;
+    
+    
+    public Tower(Texture texture, float x, float y, int width, int height) {
+    
+        this.texture = texture;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+}
     
     
     public float getX() {
@@ -56,7 +72,8 @@ public class Tower implements Entity {
 
     
     public void draw() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        drawQuadTex(texture, x, y, width, height);
     }    
     
 }
