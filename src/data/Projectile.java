@@ -9,18 +9,18 @@ import org.newdawn.slick.opengl.Texture;
  *
  * @author Keith
  */
-public class Projectile {
+public class Projectile implements Entity {
 
     private Texture texture;
     private float x, y;
-    private float width, height;
+    private int width, height;
     private float xVelocity, yVelocity;     // projectile velocity
     private float speed;
     private int damageAmount;
     private Enemy target;
     private boolean alive;
 
-    public Projectile(Texture texture, Enemy target, float x, float y, float width, float height, float speed, int damageAmount) {
+    public Projectile(Texture texture, Enemy target, float x, float y, int width, int height, float speed, int damageAmount) {
 
         this.texture = texture;
         this.target = target;
@@ -78,5 +78,45 @@ public class Projectile {
 
             draw();
         }
+    }
+
+    @Override
+    public float getX() {
+        return x;
+    }
+
+    @Override
+    public float getY() {
+        return y;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setY(float y) {
+        this.y = y;
+    }
+
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
