@@ -15,7 +15,7 @@ public class Player {
     private TileGrid grid;
     private TileType[] types;
     private WaveManager waveManager;
-    private ArrayList<TowerCannon> towerList;
+    private ArrayList<Tower> towerList;
     private boolean leftMouseButtonDown;
     
     
@@ -27,24 +27,24 @@ public class Player {
         this.types[1] = TileType.Earth;
         this.types[2] = TileType.Water;
         this.waveManager = waveManager;
-        this.towerList = new ArrayList<TowerCannon>();
+        this.towerList = new ArrayList<Tower>();
         this.leftMouseButtonDown = false;        
     }
     
     
     public void update() {
         
-        for(TowerCannon tc : towerList) {
-            tc.update();
-            tc.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
+        for(Tower t : towerList) {
+            t.update();
+            t.draw();
+            // t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
         }
         
         // handle Mouse input
         if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
             
-            towerList.add(new TowerCannon(quickLoad("cannonbase"), grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), 10, 1000, waveManager.getCurrentWave().getEnemyList()));
+            towerList.add(new TowerCannonBlue(TowerType.CannonBlue, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE)));
             // TEST LINE: System.out.println("Mouse button 0 down.");
-            // setTile();
         }
         leftMouseButtonDown = Mouse.isButtonDown(0);        // this is used to ensure only one mouse click is registered per click
         
@@ -59,10 +59,6 @@ public class Player {
                 //moveIndex();
                 Clock.changeMultiplier(-0.2f);
             }
-            if(Keyboard.getEventKey() == Keyboard.KEY_T && Keyboard.getEventKeyState()) {
-                towerList.add(new TowerCannon(quickLoad("cannonbase"), grid.getTile(6, 14), 10, 1000, waveManager.getCurrentWave().getEnemyList()));
-            }
-                
         }
     }
 }
