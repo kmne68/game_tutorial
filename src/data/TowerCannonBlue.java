@@ -5,17 +5,15 @@
  */
 package data;
 
-import org.newdawn.slick.opengl.Texture;
-
 /**
  *
  * @author Keith
  */
 public class TowerCannonBlue extends Tower {
     
-    public TowerCannonBlue(Texture texture, float x, float y, int width, int height) {
+    public TowerCannonBlue(TowerType type, Tile startTile) {
         
-        super(texture, x, y, width, height);
+        super(type, startTile);
     }
     
 }

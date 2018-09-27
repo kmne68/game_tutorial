@@ -13,16 +13,17 @@ public abstract class Tower implements Entity {
     private int width, height;
     private Enemy target;
     private int damage;
-    private Texture texture;
+    private Texture[] textures;
     
     
-    public Tower(Texture texture, float x, float y, int width, int height) {
+    public Tower(TowerType type, Tile startTile) {
     
-        this.texture = texture;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+        this.textures = type.textures;
+        this.damage = type.damage;
+        this.x = startTile.getX();
+        this.y = startTile.getY();
+        this.width = startTile.getWidth();
+        this.height = startTile.getHeight();
 }
     
     
@@ -67,13 +68,16 @@ public abstract class Tower implements Entity {
 
     
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
     public void draw() {
         
-        drawQuadTex(texture, x, y, width, height);
+        for(int i = 0; i < textures.length; i++) {
+            
+            drawQuadTex(textures[i], x, y, width, height);
+        }
     }    
     
 }
