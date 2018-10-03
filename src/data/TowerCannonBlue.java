@@ -5,15 +5,17 @@
  */
 package data;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Keith
  */
 public class TowerCannonBlue extends Tower {
     
-    public TowerCannonBlue(TowerType type, Tile startTile) {
+    public TowerCannonBlue(TowerType type, Tile startTile, ArrayList<Enemy> enemies) {
         
-        super(type, startTile);
+        super(type, startTile, enemies);
     }
     
 }
