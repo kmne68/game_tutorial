@@ -1,0 +1,6 @@
+To create a new tower type:
+
+1. make textures for tower 
+2. create the tower class with the name "Tower" followed by the tower type, i.e. TowerIce, TowerSplash, etc.
+3. customize shoot method if necessary
+4. in the TowerType enum, add the new tower type
