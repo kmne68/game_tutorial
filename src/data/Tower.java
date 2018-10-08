@@ -161,5 +161,9 @@ public abstract class Tower implements Entity {
     public void setHeight(int height) {
         this.height = height;
     }
+    
+    public Enemy getTarget() {
+        return target;
+    }
 
 }

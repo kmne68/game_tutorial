@@ -47,7 +47,7 @@ public class Player {
         }
         if (Mouse.isButtonDown(1) && !rightMouseButtonDown) {
 
-            towerList.add(new TowerCannonBlue(TowerType.CannonRed, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
+            towerList.add(new TowerIce(TowerType.CannonIce, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
             // TEST LINE: System.out.println("Mouse button 0 down.");
         }
         leftMouseButtonDown = Mouse.isButtonDown(0);        // this is used to ensure only one mouse click is registered per click
