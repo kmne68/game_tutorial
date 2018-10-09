@@ -9,7 +9,7 @@ import org.newdawn.slick.opengl.Texture;
  *
  * @author Keith
  */
-public class Projectile implements Entity {
+public abstract class Projectile implements Entity {
 
     private Texture texture;
     private float x, y;
@@ -18,13 +18,13 @@ public class Projectile implements Entity {
     private float speed;
     private int damageAmount;
     private Enemy target;
-    private boolean alive;
+    private boolean isBulletAlive;
 
     public Projectile(Texture texture, Enemy target, float x, float y, int width, int height, float speed, int damageAmount) {
 
         this.texture = texture;
         this.target = target;
-        this.alive = true;
+        this.isBulletAlive = true;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -63,17 +63,24 @@ public class Projectile implements Entity {
         drawQuadTex(texture, x, y, 32, 32);
     }
 
+    // Tutorial calls this method simply 'damage'
+    public void applyDamage() {
+
+        target.damage(damageAmount);
+        // System.out.println("projectile hit the target");    
+        isBulletAlive = false;
+
+    }
+
     public void update() {
 
-        if (alive) {
+        if (isBulletAlive) {
 
             x += xVelocity * speed * delta();
             y += yVelocity * speed * delta();
             if (checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(), target.getHeight())) {
 
-                target.damage(damageAmount);
-                // System.out.println("projectile hit the target");    
-                alive = false;
+                applyDamage();
             }
 
             draw();
@@ -118,5 +125,17 @@ public class Projectile implements Entity {
     @Override
     public void setHeight(int height) {
         this.height = height;
+    }
+    
+    
+    public Enemy getTarget() {
+        return target;
+    }
+    
+    
+    public void setIsAlive(boolean status) {
+        
+        isBulletAlive = status;
+         
     }
 }
