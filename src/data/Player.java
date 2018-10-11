@@ -17,6 +17,7 @@ public class Player {
     private WaveManager waveManager;
     private ArrayList<Tower> towerList;
     private boolean leftMouseButtonDown, rightMouseButtonDown;
+    public static int Funds, Lives;         // capitalized because they are static
 
     public Player(TileGrid grid, WaveManager waveManager) {
 
@@ -29,6 +30,30 @@ public class Player {
         this.towerList = new ArrayList<Tower>();
         this.leftMouseButtonDown = false;
         this.rightMouseButtonDown = false;
+        Funds = 0;
+        Lives = 0;
+    }
+
+    public static boolean modifyFunds(int amount) {
+
+        if (Funds + amount >= 0) {
+            Funds += amount;
+            System.out.println("Funds: " + Funds);
+            
+            return true;
+        }        
+        System.out.println("Funds: " + Funds);
+        return false;
+    }
+
+    public static void modifyLives(int amount) {
+
+        Lives += amount;
+    }
+
+    public void setup() {
+        Funds = 50;
+        Lives = 10;
     }
 
     public void update() {
@@ -42,13 +67,16 @@ public class Player {
         // handle Mouse input
         if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
 
-            towerList.add(new TowerCannonBlue(TowerType.CannonBlue, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
-            // TEST LINE: System.out.println("Mouse button 0 down.");
+            if (modifyFunds(-20)) {  // only place this tower if we have at least the amount in parenthesis in funds
+                towerList.add(new TowerCannonBlue(TowerType.CannonBlue, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
+            }
         }
         if (Mouse.isButtonDown(1) && !rightMouseButtonDown) {
 
-            towerList.add(new TowerIce(TowerType.CannonIce, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
-            // TEST LINE: System.out.println("Mouse button 0 down.");
+            if (modifyFunds(-55)) // only place this tower if we have at least the amount in parenthesis in funds
+            {
+                towerList.add(new TowerIce(TowerType.CannonIce, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
+            }
         }
         leftMouseButtonDown = Mouse.isButtonDown(0);        // this is used to ensure only one mouse click is registered per click
         rightMouseButtonDown = Mouse.isButtonDown(1);
