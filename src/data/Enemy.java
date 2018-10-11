@@ -73,6 +73,15 @@ public class Enemy implements Entity {
             }
         }
     }
+    
+    
+    private void endOfMazeReached() {
+        
+        Player.modifyLives(-1);
+        die();
+    }
+    
+    
 
     private boolean checkpointReached() {
 
@@ -175,6 +184,7 @@ public class Enemy implements Entity {
         health -= damageAmount;
         if(health <= 0) {
             die();
+            Player.modifyFunds(5);
         }
     }
     
