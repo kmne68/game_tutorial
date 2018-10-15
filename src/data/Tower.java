@@ -7,6 +7,7 @@ import static helpers.Artist.drawQuadTexRotate;
 import static helpers.Artist.quickLoad;
 import static helpers.Clock.delta;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -19,12 +20,12 @@ public abstract class Tower implements Entity {
     private Enemy target;
     private int damage;
     private Texture[] textures;
-    private ArrayList<Enemy> enemies;
+    private CopyOnWriteArrayList<Enemy> enemies;
     private boolean targeted;
     private int range;
     private ArrayList<Projectile> projectiles;
 
-    public Tower(TowerType type, Tile startTile, ArrayList<Enemy> enemies) {
+    public Tower(TowerType type, Tile startTile, CopyOnWriteArrayList<Enemy> enemies) {
 
         this.textures = type.textures;
         this.damage = type.damage;
@@ -47,7 +48,7 @@ public abstract class Tower implements Entity {
         float closestDistance = 10000;  // 10000 is an arbitrary distance within which all enemys should exist
 
         for (Enemy e : enemies) {
-            if (isInRange(e) && (findDistance(e) < closestDistance)) {
+            if (isInRange(e) && (findDistance(e) < closestDistance && e.isAlive())) {
                 closestDistance = findDistance(e);
                 closest = e;
             }
@@ -92,7 +93,7 @@ public abstract class Tower implements Entity {
 
     }
 
-    public void updateEnemyList(ArrayList<Enemy> newList) {
+    public void updateEnemyList(CopyOnWriteArrayList<Enemy> newList) {
 
         enemies = newList;
     }
@@ -101,16 +102,15 @@ public abstract class Tower implements Entity {
 
         if (!targeted) {
             target = acquireTarget();
-        }
+        } else if (timeSinceLastShot > firingSpeed) {
+            shoot();
+        }        
 
         if (target == null || target.isAlive() == false) {
             targeted = false;
         }
 
         timeSinceLastShot += delta();
-        if (timeSinceLastShot > firingSpeed) {
-            shoot();
-        }
 
         for (Projectile p : projectiles) {
             p.update();

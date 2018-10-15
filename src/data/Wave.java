@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import static helpers.Clock.*;
 import static helpers.Artist.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  *
@@ -14,7 +15,7 @@ public class Wave {
     private float timeSinceLastSpawn;
     private float spawnTime;
     private Enemy enemyType;
-    private ArrayList<Enemy> enemyList;
+    private CopyOnWriteArrayList<Enemy> enemyList;
     private int enemiesPerWave;
     private boolean waveCompleted;
 
@@ -24,7 +25,7 @@ public class Wave {
         this.spawnTime = spawnTime;
         this.enemiesPerWave = enemiesPerWave;
         this.timeSinceLastSpawn = 0;
-        this.enemyList = new ArrayList<Enemy>();
+        this.enemyList = new CopyOnWriteArrayList<Enemy>();
         this.waveCompleted = false;
 
         spawn();
@@ -66,7 +67,7 @@ public class Wave {
     }
 
     
-    public ArrayList<Enemy> getEnemyList() {
+    public CopyOnWriteArrayList<Enemy> getEnemyList() {
         
         return enemyList;
     }
