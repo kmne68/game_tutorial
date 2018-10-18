@@ -16,7 +16,7 @@ public class Wave {
     private float spawnTime;
     private Enemy enemyType;
     private CopyOnWriteArrayList<Enemy> enemyList;
-    private int enemiesPerWave;
+    private int enemiesPerWave, enemiesSpawned;
     private boolean waveCompleted;
 
     public Wave(Enemy enemyType, float spawnTime, int enemiesPerWave) {
@@ -24,6 +24,7 @@ public class Wave {
         this.enemyType = enemyType;
         this.spawnTime = spawnTime;
         this.enemiesPerWave = enemiesPerWave;
+        this.enemiesSpawned = 0;
         this.timeSinceLastSpawn = 0;
         this.enemyList = new CopyOnWriteArrayList<Enemy>();
         this.waveCompleted = false;
@@ -35,7 +36,7 @@ public class Wave {
 
         boolean allEnemiesDead = true;
 
-        if (enemyList.size() < enemiesPerWave) {
+        if (enemiesSpawned < enemiesPerWave) {
 
             timeSinceLastSpawn += delta();
 
@@ -60,6 +61,7 @@ public class Wave {
     private void spawn() {
 
         enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getTileGrid(), TILE_SIZE, TILE_SIZE, enemyType.getSpeed(), enemyType.getHealth()));
+        enemiesSpawned++;
     }
 
     public boolean isCompleted() {

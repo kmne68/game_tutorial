@@ -86,12 +86,7 @@ public abstract class Tower implements Entity {
         return xDistance + yDistance;
     }
 
-    public void shoot() {
-
-        timeSinceLastShot = 0;
-        projectiles.add(new ProjectileIceBall(quickLoad("bullet"), target, (x + (TILE_SIZE / 2) - (TILE_SIZE / 4)), y + ((TILE_SIZE / 2) - (TILE_SIZE / 4)), 32, 32, 900, 10));
-
-    }
+    public abstract void shoot(Enemy target);
 
     public void updateEnemyList(CopyOnWriteArrayList<Enemy> newList) {
 
@@ -102,9 +97,13 @@ public abstract class Tower implements Entity {
 
         if (!targeted) {
             target = acquireTarget();
-        } else if (timeSinceLastShot > firingSpeed) {
-            shoot();
-        }        
+        } else {
+            firingAngle = calculateAngle();
+            if (timeSinceLastShot > firingSpeed) {
+                shoot(target);
+                timeSinceLastShot = 0;
+            }
+        }
 
         if (target == null || target.isAlive() == false) {
             targeted = false;
@@ -116,17 +115,17 @@ public abstract class Tower implements Entity {
             p.update();
         }
 
-        firingAngle = calculateAngle();
         draw();
     }
 
     public void draw() {
-        
-        drawQuadTex(textures[0], x, y, width, height);  // draw tower base
-        if(textures.length > 1)
-        for (int i = 1; i < textures.length; i++) {
 
-            drawQuadTexRotate(textures[i], x, y, width, height, firingAngle);   // rotate subsequent textures (that are on top of base)
+        drawQuadTex(textures[0], x, y, width, height);  // draw tower base
+        if (textures.length > 1) {
+            for (int i = 1; i < textures.length; i++) {
+
+                drawQuadTexRotate(textures[i], x, y, width, height, firingAngle);   // rotate subsequent textures (that are on top of base)
+            }
         }
     }
 
@@ -161,7 +160,7 @@ public abstract class Tower implements Entity {
     public void setHeight(int height) {
         this.height = height;
     }
-    
+
     public Enemy getTarget() {
         return target;
     }
