@@ -52,7 +52,7 @@ public class Player {
     }
 
     public void setup() {
-        Funds = 50;
+        Funds = 200;
         Lives = 10;
     }
 

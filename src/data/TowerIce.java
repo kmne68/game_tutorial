@@ -18,10 +18,11 @@ public class TowerIce extends Tower {
     }
     
     
-//    @Override
-//    public void shoot() {
-//        super.shoot();  // first, do the regular shooting stuff        
-//        super.getTarget().setSpeed(4);
-//    }
+    
+    @Override
+    public void shoot(Enemy target) {
+        super.projectiles.add(new ProjectileIceBall(super.type.projectileType, super.target, super.getX(), super.getY(), 32, 32) );
+    }
+    
     
 }

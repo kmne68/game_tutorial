@@ -20,17 +20,17 @@ public abstract class Projectile implements Entity {
     private Enemy target;
     private boolean isBulletAlive;
 
-    public Projectile(Texture texture, Enemy target, float x, float y, int width, int height, float speed, int damageAmount) {
+    public Projectile(ProjectileType type, Enemy target, float x, float y, int width, int height) {
 
-        this.texture = texture;
+        this.texture = type.texture;
         this.target = target;
         this.isBulletAlive = true;
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.speed = speed;
-        this.damageAmount = damageAmount;
+        this.speed = type.speed;
+        this.damageAmount = type.damage;
         this.xVelocity = 0f;
         this.yVelocity = 0f;
 
