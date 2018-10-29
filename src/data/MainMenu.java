@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package data;
 
 import org.newdawn.slick.opengl.Texture;
@@ -46,6 +41,8 @@ public class MainMenu {
         }
     }
 
+    
+    // Check whether a button has been clicked by the user and perform accordingly
     public void update() {
 
         drawQuadTex(background, 0, 0, 2048, 1024);

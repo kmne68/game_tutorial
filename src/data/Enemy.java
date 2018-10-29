@@ -20,8 +20,7 @@ public class Enemy implements Entity {
     private float speed, x, y, health, startHealth;
     private Texture texture, healthBackground, healthForeground, healthBorder;
     private Tile startTile;
-    private boolean first = true;
-    private boolean alive = true;
+    private boolean first, alive;
     private TileGrid grid;
 
     private ArrayList<Checkpoint> checkpoints;
@@ -42,7 +41,8 @@ public class Enemy implements Entity {
         this.health = health;
         this.startHealth = health;
         this.grid = grid;
-
+        this.first = true;
+        this.alive = true;
         this.checkpoints = new ArrayList<Checkpoint>();
         this.directions = new int[2];
         this.directions[0] = 0;     // x direction
@@ -55,11 +55,14 @@ public class Enemy implements Entity {
 
     public void update() {
 
+        // Check whether it is the first time this class is updated if so, do nothing
         if (first == true) {
             first = false;      // prevent first delta from being huge; set to false on first call
         } else {
 
             if (checkpointReached()) {
+                
+                // Check whether there are more checkpoints before moving on
                 if (currentCheckpoint + 1 == checkpoints.size()) {
                     die();
                     System.out.println("Enemy reached end of maze.");
@@ -67,7 +70,7 @@ public class Enemy implements Entity {
                     currentCheckpoint++;
                 }
             } else {
-
+                // If not at a checkpoint, continue in the current direction
                 x += delta() * checkpoints.get(currentCheckpoint).getxDirection() * speed;
                 y += delta() * checkpoints.get(currentCheckpoint).getyDirection() * speed;
             }
@@ -75,14 +78,14 @@ public class Enemy implements Entity {
     }
     
     
+    // Run when the last checkpoint is reached by enemy
     private void endOfMazeReached() {
         
         Player.modifyLives(-1);
         die();
     }
     
-    
-
+   
     private boolean checkpointReached() {
 
         boolean reached = false;
@@ -103,9 +106,10 @@ public class Enemy implements Entity {
         return reached;
     }
 
+    
     private void populateCheckpointList() {
 
-        // first checkpoint is a special case
+        // First checkpoint is a special case, add it manually based on startTile
         checkpoints.add(findNextCheckpoint(startTile, directions = findNextDirection(startTile)));
 
         // find remaining checkpoints
@@ -125,12 +129,13 @@ public class Enemy implements Entity {
         }
     }
 
+    
     private Checkpoint findNextCheckpoint(Tile tile, int[] dir) {
 
         Tile next = null;
         Checkpoint checkpoint = null;
-        boolean found = false;          // boolean to decide if next checkpoint is found
-        int counter = 1;                // integer to increment each loop
+        boolean found = false;          // Boolean to decide if next checkpoint is found
+        int counter = 1;                // Integer to increment each loop
 
         while (!found) {
 
@@ -139,7 +144,7 @@ public class Enemy implements Entity {
                     tile.getType() != grid.getTile(tile.getXPlace() + dir[0] * counter, tile.getYPlace() + dir[1] * counter).getType()) {
 
                 found = true;
-                counter -= 1;           // move counter back one to give the last tile of the previous type
+                counter -= 1;           // Move counter back one to give the last tile of the previous type
                 next = grid.getTile(tile.getXPlace() + dir[0] * counter, tile.getYPlace() + dir[1] * counter);
             }
 
@@ -158,6 +163,7 @@ public class Enemy implements Entity {
         Tile down = grid.getTile(tile.getXPlace(), tile.getYPlace() + 1);
         Tile left = grid.getTile(tile.getXPlace() - 1, tile.getYPlace());
 
+        // Check whether current inhabited tiletype matches above, right, down, or left
         if (tile.getType() == up.getType() && directions[1] != 1) {
             dir[0] = 0;
             dir[1] = -1;
@@ -179,6 +185,7 @@ public class Enemy implements Entity {
     }
 
  
+    // Take damage from external source
     public void damage(int damageAmount) {
         
         health -= damageAmount;
@@ -197,20 +204,27 @@ public class Enemy implements Entity {
     public void draw() {
 
         float healthPercentage = health / startHealth;
+        
+        // Enemy texture
         drawQuadTex(texture, x, y, width, height);
+        
+        // Healthbar textures
         drawQuadTex(healthBackground, x, y - 16, width, 8);
         drawQuadTex(healthForeground, x, y - 16, TILE_SIZE * healthPercentage, 8);
         drawQuadTex(healthBorder, x, y - 16, width, 8);
     }
 
+    
     public int getWidth() {
         return width;
     }
+    
 
     public void setWidth(int width) {
         this.width = width;
     }
 
+    
     public int getHeight() {
         return height;
     }

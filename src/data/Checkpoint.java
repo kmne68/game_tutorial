@@ -61,6 +61,4 @@ public class Checkpoint {
         this.yDirection = yDirection;
     }
     
-    
-    
 }

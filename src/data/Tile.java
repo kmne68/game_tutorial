@@ -39,14 +39,14 @@ public class Tile {
     }
     
     
-    // adjust for tile width
+    // Adjust for tile width
     public int getXPlace() {
         
         return (int) x / TILE_SIZE;
     }
     
     
-    // adjust for tile height
+    // Adjust for tile height
     public int getYPlace() {
         
         return (int) y / TILE_SIZE;

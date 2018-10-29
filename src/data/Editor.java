@@ -18,7 +18,6 @@ public class Editor {
 
     public Editor() {
 
-    //    this.grid = new TileGrid();
         this.grid = loadMap("C:\\Users\\Keith\\Documents\\NetBeansProjects\\game_tutorial\\NewMapToRead");
     //    this.grid = loadMap("NewMapToRead");
         this.index = 0;
@@ -29,6 +28,8 @@ public class Editor {
         this.types[2] = TileType.Water;
     }
 
+    
+    // Allows editor to change which TileType is selected
     private void moveIndex() {
 
         index++;
@@ -38,23 +39,25 @@ public class Editor {
         }
     }
 
+    
     private void setTile() {
 
         grid.setTile((int) Math.floor(Mouse.getX() / TILE_SIZE),
                 (int) Math.floor((HEIGHT - Mouse.getY() - 1) / TILE_SIZE), types[index]);
     }
 
+    
     public void update() {
 
         grid.draw();
 
-        // handle Mouse input
+        // Handle Mouse input
         if (Mouse.isButtonDown(0)) {
 
             setTile();
         }
 
-        // handle Keyboard input
+        // Handle Keyboard input
         while (Keyboard.next()) {
             if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState()) {
                 moveIndex();

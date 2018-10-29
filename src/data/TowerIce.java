@@ -23,6 +23,5 @@ public class TowerIce extends Tower {
     public void shoot(Enemy target) {
         super.projectiles.add(new ProjectileIceBall(super.type.projectileType, super.target, super.getX(), super.getY(), 32, 32) );
     }
-    
-    
+   
 }

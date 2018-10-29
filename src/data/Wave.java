@@ -1,7 +1,5 @@
 package data;
 
-import java.util.ArrayList;
-
 import static helpers.Clock.*;
 import static helpers.Artist.*;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -34,6 +32,7 @@ public class Wave {
 
     public void update() {
 
+        // Assume all enemies are dead until live ones are detected
         boolean allEnemiesDead = true;
 
         if (enemiesSpawned < enemiesPerWave) {

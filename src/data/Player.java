@@ -19,6 +19,7 @@ public class Player {
     private boolean leftMouseButtonDown, rightMouseButtonDown;
     public static int Funds, Lives;         // capitalized because they are static
 
+    
     public Player(TileGrid grid, WaveManager waveManager) {
 
         this.grid = grid;
@@ -34,6 +35,7 @@ public class Player {
         Lives = 0;
     }
 
+    
     public static boolean modifyFunds(int amount) {
 
         if (Funds + amount >= 0) {
@@ -46,49 +48,52 @@ public class Player {
         return false;
     }
 
+    
     public static void modifyLives(int amount) {
 
         Lives += amount;
     }
 
+    
+    // Initialize Cash and Lives values for player
     public void setup() {
         Funds = 200;
         Lives = 10;
     }
 
+    
     public void update() {
 
+        // Update all towers in the game
         for (Tower t : towerList) {
             t.update();
             t.draw();
             t.updateEnemyList(waveManager.getCurrentWave().getEnemyList());
         }
 
-        // handle Mouse input
+        // Handle Mouse input
         if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
 
-            if (modifyFunds(-20)) {  // only place this tower if we have at least the amount in parenthesis in funds
+            if (modifyFunds(-20)) {  // Only place this tower if we have at least the amount in parenthesis in funds
                 towerList.add(new TowerCannonBlue(TowerType.CannonBlue, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
             }
         }
         if (Mouse.isButtonDown(1) && !rightMouseButtonDown) {
 
-            if (modifyFunds(-55)) // only place this tower if we have at least the amount in parenthesis in funds
+            if (modifyFunds(-55)) // Only place this tower if we have at least the amount in parenthesis in funds
             {
                 towerList.add(new TowerIce(TowerType.CannonIce, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
             }
         }
-        leftMouseButtonDown = Mouse.isButtonDown(0);        // this is used to ensure only one mouse click is registered per click
+        leftMouseButtonDown = Mouse.isButtonDown(0);        // This is used to ensure only one mouse click is registered per click
         rightMouseButtonDown = Mouse.isButtonDown(1);
 
-        // handle Keyboard input
+        // Handle Keyboard input
         while (Keyboard.next()) {
             if (Keyboard.getEventKey() == Keyboard.KEY_RIGHT && Keyboard.getEventKeyState()) {
-                //moveIndex();
                 Clock.changeMultiplier(0.2f);
             }
             if (Keyboard.getEventKey() == Keyboard.KEY_LEFT && Keyboard.getEventKeyState()) {
-                //moveIndex();
                 Clock.changeMultiplier(-0.2f);
             }
         }

@@ -50,28 +50,31 @@ public abstract class Projectile implements Entity {
         xVelocity = xPercentOfMovement;
         yVelocity = totalAllowedMovement - xPercentOfMovement;
 
+        // Set direction based on position of target relative to tower
         if (target.getX() < x) {
-            xVelocity *= -1;        // the target is to our tower's left so shoot in the negative x direction (left)
+            xVelocity *= -1;        // The target is to our tower's left so shoot in the negative x direction (left)
         }
         if (target.getY() < y) {
-            yVelocity *= -1;        // the target is above the tower so shoot in the negative y direction (up)
+            yVelocity *= -1;        // The target is above the tower so shoot in the negative y direction (up)
         }
     }
+    
 
     public void draw() {
 
         drawQuadTex(texture, x, y, 32, 32);
     }
 
-    // Tutorial calls this method simply 'damage'
+    
+    // Tutorial calls this method simply 'damage', deals damage to Enemy
     public void applyDamage() {
 
-        target.damage(damageAmount);
-        // System.out.println("projectile hit the target");    
+        target.damage(damageAmount);  
         isBulletAlive = false;
 
     }
 
+    
     public void update() {
 
         if (isBulletAlive) {
@@ -87,41 +90,49 @@ public abstract class Projectile implements Entity {
         }
     }
 
+    
     @Override
     public float getX() {
         return x;
     }
 
+    
     @Override
     public float getY() {
         return y;
     }
 
+    
     @Override
     public int getWidth() {
         return width;
     }
 
+    
     @Override
     public int getHeight() {
         return height;
     }
 
+    
     @Override
     public void setX(float x) {
         this.x = x;
     }
 
+    
     @Override
     public void setY(float y) {
         this.y = y;
     }
 
+    
     @Override
     public void setWidth(int width) {
         this.width = width;
     }
 
+    
     @Override
     public void setHeight(int height) {
         this.height = height;

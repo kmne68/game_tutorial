@@ -1,10 +1,8 @@
 package data;
 
-import static helpers.Artist.TILE_SIZE;
 import org.newdawn.slick.opengl.Texture;
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.drawQuadTexRotate;
-import static helpers.Artist.quickLoad;
 import static helpers.Clock.delta;
 import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -18,7 +16,6 @@ public abstract class Tower implements Entity {
     private float x, y, timeSinceLastShot, firingSpeed, firingAngle;
     private int width, height;
     public Enemy target;
-    private int damage;
     private Texture[] textures;
     private CopyOnWriteArrayList<Enemy> enemies;
     private boolean targeted;
@@ -30,7 +27,6 @@ public abstract class Tower implements Entity {
 
         this.type = type;
         this.textures = type.textures;
-        this.damage = type.damage;
         this.range = type.range;
         this.firingSpeed = type.firingSpeed;
         this.x = startTile.getX();
@@ -49,12 +45,14 @@ public abstract class Tower implements Entity {
         Enemy closest = null;
         float closestDistance = 10000;  // 10000 is an arbitrary distance within which all enemys should exist
 
+        // Go through each enemy in 'enemies' and return nearest one
         for (Enemy e : enemies) {
             if (isInRange(e) && (findDistance(e) < closestDistance && e.isAlive())) {
                 closestDistance = findDistance(e);
                 closest = e;
             }
         }
+        // If an enemy exists and is returned, targeted == true
         if (closest != null) {
             targeted = true;
         }
@@ -68,6 +66,7 @@ public abstract class Tower implements Entity {
         return (float) Math.toDegrees(angleTemp) - 90;
     }
 
+    
     private boolean isInRange(Enemy e) {
 
         float xDistance = Math.abs(e.getX() - x);
@@ -80,6 +79,7 @@ public abstract class Tower implements Entity {
         }
     }
 
+    
     private float findDistance(Enemy e) {
 
         float xDistance = Math.abs(e.getX() - x);
@@ -88,13 +88,17 @@ public abstract class Tower implements Entity {
         return xDistance + yDistance;
     }
 
+    
+    // Abstract method for "shoot" and must be overriden in subclasses
     public abstract void shoot(Enemy target);
 
+    
     public void updateEnemyList(CopyOnWriteArrayList<Enemy> newList) {
 
         enemies = newList;
     }
 
+    
     public void update() {
 
         if (!targeted) {
@@ -120,6 +124,7 @@ public abstract class Tower implements Entity {
         draw();
     }
 
+    
     public void draw() {
 
         drawQuadTex(textures[0], x, y, width, height);  // draw tower base
@@ -135,34 +140,42 @@ public abstract class Tower implements Entity {
         return x;
     }
 
+    
     public float getY() {
         return y;
     }
 
+    
     public int getWidth() {
         return width;
     }
 
+    
     public int getHeight() {
         return height;
     }
 
+    
     public void setX(float x) {
         this.x = x;
     }
 
+    
     public void setY(float y) {
         this.y = y;
     }
 
+    
     public void setWidth(int width) {
         this.width = width;
     }
 
+    
     public void setHeight(int height) {
         this.height = height;
     }
 
+    
     public Enemy getTarget() {
         return target;
     }

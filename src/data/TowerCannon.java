@@ -15,9 +15,8 @@ public class TowerCannon {
     
     private float x, y, timeSinceLastShot, firingSpeed;
     private float firingAngle;
-    private int width, height, damage, range;
+    private int width, height, range;
     private Texture baseTexture, cannonTexture;
-    private Tile startTile;
     private ArrayList<Projectile> projectiles;
     private CopyOnWriteArrayList<Enemy> enemies;
     private Enemy target;
@@ -28,10 +27,8 @@ public class TowerCannon {
         
         this.baseTexture = baseTexture;
         this.cannonTexture = quickLoad("cannonGunBlue");
-        this.startTile = startTile;
         this.x = startTile.getX();
         this.y = startTile.getY();
-        this.damage = damage;
         this.range = range;
         this.width = (int) startTile.getWidth();
         this.height = (int) startTile.getHeight();
