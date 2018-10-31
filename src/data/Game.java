@@ -2,8 +2,6 @@ package data;
 
 import static helpers.Artist.quickLoad;
 import static helpers.Artist.TILE_SIZE;
-import org.lwjgl.input.Mouse;
-import ui.UI;
 
 /**
  *
@@ -15,7 +13,6 @@ public class Game {
     private Player player;
     private WaveManager waveManager;
     private TowerCannonBlue blueTower;
-    private UI towerPickerUI;
     
     
     public Game(int[][] map){
@@ -25,30 +22,6 @@ public class Game {
         
         player = new Player(grid, waveManager);
         player.setup();
-        setupUI();
-    }
-    
-    
-    private void setupUI() {
-        
-        towerPickerUI = new UI();
-        towerPickerUI.addButton("CannonBlue", "cannonGunBlue", 0, 0);
-        
-    }
-    
-    
-    private void updateUI() {
-        
-        towerPickerUI.draw();
-        
-        if(Mouse.next()) {
-            boolean mouseClicked = Mouse.isButtonDown(0);
-            if(mouseClicked) {
-                if(towerPickerUI.isButtonClicked("CannonBlue")) {
-                    player.pickTower(new TowerCannonBlue(TowerType.CannonBlue, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
-                } 
-            }
-        }
     }
     
     
@@ -58,7 +31,6 @@ public class Game {
         waveManager.update();
         player.update();
 //        tower.update();   // used in testing
-        updateUI();
     }
     
 }
