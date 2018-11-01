@@ -32,8 +32,8 @@ public class Game {
     private void setupUI() {
         
         towerPickerUI = new UI();
-        towerPickerUI.addButton("CannonBlue", "cannonGunBlue", 0, 0);
-        
+        towerPickerUI.addButton("CannonBlue", "cannonBaseBlue", 0, 0);
+        towerPickerUI.addButton("CannonIce", "cannonIceFull", 64, 0);
     }
     
     
@@ -47,6 +47,9 @@ public class Game {
                 if(towerPickerUI.isButtonClicked("CannonBlue")) {
                     player.pickTower(new TowerCannonBlue(TowerType.CannonBlue, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
                 } 
+                if(towerPickerUI.isButtonClicked("CannonIce")) {
+                    player.pickTower(new TowerCannonIce(TowerType.CannonIce, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
+                }
             }
         }
     }

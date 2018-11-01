@@ -90,7 +90,7 @@ public class Player {
 
             if (modifyFunds(-55)) // Only place this tower if we have at least the amount in parenthesis in funds
             {
-                towerList.add(new TowerIce(TowerType.CannonIce, grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE), waveManager.getCurrentWave().getEnemyList()));
+                System.out.println("Right mouse button clicked.");
             }
         }
         leftMouseButtonDown = Mouse.isButtonDown(0);        // This is used to ensure only one mouse click is registered per click
@@ -112,7 +112,7 @@ public class Player {
         
         if(holdingTower) {
              if (modifyFunds(-20)) {  // Only place this tower if we have at least the amount in parenthesis in funds
-                towerList.add(new TowerCannonBlue(TowerType.CannonBlue, getMouseTile(), waveManager.getCurrentWave().getEnemyList()));
+                towerList.add(tempTower);
             }
         }
         holdingTower = false;
