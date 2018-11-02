@@ -111,7 +111,7 @@ public class Player {
     private void placeTower() {
         
         if(holdingTower) {
-             if (modifyFunds(-20)) {  // Only place this tower if we have at least the amount in parenthesis in funds
+             if (modifyFunds(-tempTower.getCost())) {  // Only place this tower if we have at least the amount in parenthesis in funds
                 towerList.add(tempTower);
             }
         }

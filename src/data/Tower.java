@@ -14,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public abstract class Tower implements Entity {
 
     private float x, y, timeSinceLastShot, firingSpeed, firingAngle;
-    private int width, height;
+    private int width, height, cost;
     public Enemy target;
     private Texture[] textures;
     private CopyOnWriteArrayList<Enemy> enemies;
@@ -28,6 +28,7 @@ public abstract class Tower implements Entity {
         this.type = type;
         this.textures = type.textures;
         this.range = type.range;
+        this.cost = type.cost;
         this.firingSpeed = type.firingSpeed;
         this.x = startTile.getX();
         this.y = startTile.getY();
@@ -178,6 +179,10 @@ public abstract class Tower implements Entity {
     
     public Enemy getTarget() {
         return target;
+    }
+    
+    public int getCost() {
+        return cost;
     }
 
 }
