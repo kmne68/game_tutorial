@@ -47,9 +47,9 @@ public class UI {
         return null;
     }
 
-    public void createMenu(String name, int x, int y) {
+    public void createMenu(String name, int x, int y, int optionsWidth, int optionsHeight) {
 
-        menuList.add(new Menu(name, x, y));
+        menuList.add(new Menu(name, x, y, optionsWidth, optionsHeight));
     }
 
     public Menu getMenu(String name) {
@@ -77,19 +77,24 @@ public class UI {
         String name;
         private ArrayList<Button> menuButtons;
         private int x, y, buttonCount;      // tutorial uses buttonAmmount rather than buttonCount
+        private int optionsWidth, optionsHeight;
 
-        public Menu(String name, int x, int y) {
+        public Menu(String name, int x, int y, int optionsWidth, int optionsHeight) {
 
             this.name = name;
             this.x = x;
             this.y = y;
             this.buttonCount = 0;
+            this.optionsWidth = optionsWidth;
+            this.optionsHeight = optionsHeight;
             this.menuButtons = new ArrayList<Button>();
         }
 
         public void addButton(Button b) {
 
-            b.setX(x + buttonCount * TILE_SIZE);        // place button
+            if(optionsWidth != 0)
+                   b.setY(y + (buttonCount / optionsWidth) * TILE_SIZE);
+            b.setX(x + (buttonCount % optionsWidth) * TILE_SIZE);        // place button
             buttonCount++;
             menuButtons.add(b);
         }

@@ -33,7 +33,7 @@ import org.newdawn.slick.util.ResourceLoader;
  */
 public class Artist {
     
-    public static final int WIDTH = 1280;
+    public static final int WIDTH = 1472;
     public static final int HEIGHT = 960;
     public static final int TILE_SIZE = 64;
     
