@@ -47,9 +47,9 @@ public class UI {
         return null;
     }
 
-    public void createMenu(String name, int x, int y, int optionsWidth, int optionsHeight) {
+    public void createMenu(String name, int x, int y, int width, int height, int optionsWidth, int optionsHeight) {
 
-        menuList.add(new Menu(name, x, y, optionsWidth, optionsHeight));
+        menuList.add(new Menu(name, x, y, width, height, optionsWidth, optionsHeight));
     }
 
     public Menu getMenu(String name) {
@@ -76,17 +76,20 @@ public class UI {
 
         String name;
         private ArrayList<Button> menuButtons;
-        private int x, y, buttonCount;      // tutorial uses buttonAmmount rather than buttonCount
-        private int optionsWidth, optionsHeight;
+        private int x, y, width, height, buttonCount;      // tutorial uses buttonAmmount rather than buttonCount
+        private int optionsWidth, optionsHeight, padding;
 
-        public Menu(String name, int x, int y, int optionsWidth, int optionsHeight) {
+        public Menu(String name, int x, int y, int width, int height, int optionsWidth, int optionsHeight) {
 
             this.name = name;
             this.x = x;
             this.y = y;
+            this.width = width;
+            this.height = height;
             this.buttonCount = 0;
             this.optionsWidth = optionsWidth;
             this.optionsHeight = optionsHeight;
+            this.padding = (width - (optionsWidth * TILE_SIZE)) / (optionsWidth + 1); // menu width  minus the number of buttons time the button width divided by the number of buttons (plus one)
             this.menuButtons = new ArrayList<Button>();
         }
 
@@ -94,7 +97,7 @@ public class UI {
 
             if(optionsWidth != 0)
                    b.setY(y + (buttonCount / optionsWidth) * TILE_SIZE);
-            b.setX(x + (buttonCount % optionsWidth) * TILE_SIZE);        // place button
+            b.setX(x + (buttonCount % 2) * (padding + TILE_SIZE) + padding);        // place button
             buttonCount++;
             menuButtons.add(b);
         }
