@@ -22,7 +22,7 @@ public class Boot {
         // Main game loop
         while(!Display.isCloseRequested()) {
 
-            glClear(GL11.GL_COLOR_BUFFER_BIT);      // added to stop background flicker
+//            glClear(GL11.GL_COLOR_BUFFER_BIT);      // added to stop background flicker
             
             Clock.update();            
             StateManager.update();            

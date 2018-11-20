@@ -6,6 +6,7 @@ import static helpers.Artist.TILE_SIZE;
 import org.lwjgl.input.Mouse;
 import ui.Button;
 import ui.UI;
+import ui.UI.Menu;
 
 /**
  *
@@ -17,7 +18,8 @@ public class Game {
     private Player player;
     private WaveManager waveManager;
     private TowerCannonBlue blueTower;
-    private UI towerPickerUI;
+    private UI gameUI;
+    private Menu towerPickerMenu;
     
     
     public Game(int[][] map){
@@ -33,31 +35,28 @@ public class Game {
     
     private void setupUI() {
         
-        towerPickerUI = new UI();
+        gameUI = new UI();
 //        towerPickerUI.addButton("CannonBlue", "cannonBaseBlue", 0, 0);
 //        towerPickerUI.addButton("CannonIce", "cannonIceFull", 64, 0);
-        towerPickerUI.createMenu("TowerPicker", 1280, 0, 192, 960, 2, 0);
-        towerPickerUI.getMenu("TowerPicker").addButton(new Button("CannonBlue", quickLoad("cannonBlueFull"), 0, 0));
-        towerPickerUI.getMenu("TowerPicker").addButton(new Button("CannonIce", quickLoad("cannonIceFull"), 0, 0));
-        towerPickerUI.getMenu("TowerPicker").addButton(new Button("CannonBlue", quickLoad("cannonBlueFull"), 0, 0));
-        towerPickerUI.getMenu("TowerPicker").addButton(new Button("CannonIce", quickLoad("cannonIceFull"), 0, 0));
-        towerPickerUI.getMenu("TowerPicker").addButton(new Button("CannonBlue", quickLoad("cannonBlueFull"), 0, 0));
-        towerPickerUI.getMenu("TowerPicker").addButton(new Button("CannonIce", quickLoad("cannonIceFull"), 0, 0));
-
+        gameUI.createMenu("TowerPicker", 1280, 0, 192, 960, 2, 0);
+        towerPickerMenu = gameUI.getMenu("TowerPicker");
+        towerPickerMenu.quickAdd("Blue Cannon", "cannonBlueFull");
+        towerPickerMenu.quickAdd("Ice Cannon", "cannonIceFull");
+        
     }
     
     
     private void updateUI() {
         
-        towerPickerUI.draw();
+        gameUI.draw();
         
         if(Mouse.next()) {
             boolean mouseClicked = Mouse.isButtonDown(0);
             if(mouseClicked) {
-                if(towerPickerUI.getMenu("TowerPicker").isButtonClicked("CannonBlue")) {
+                if(towerPickerMenu.isButtonClicked("Blue Cannon")) {
                     player.pickTower(new TowerCannonBlue(TowerType.CannonBlue, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
                 } 
-                if(towerPickerUI.getMenu("TowerPicker").isButtonClicked("CannonIce")) {
+                if(towerPickerMenu.isButtonClicked("Ice Cannon")) {
                     player.pickTower(new TowerCannonIce(TowerType.CannonIce, grid.getTile(0, 0), waveManager.getCurrentWave().getEnemyList()));
                 }
             }

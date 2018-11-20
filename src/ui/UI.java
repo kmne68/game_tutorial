@@ -95,12 +95,27 @@ public class UI {
 
         public void addButton(Button b) {
 
+            setButton(b);
+        }
+        
+        
+        public void quickAdd(String name, String buttonTextureName) {
+            
+            Button b = new Button(name, quickLoad(buttonTextureName), 0, 0);
+            setButton(b);
+        }
+        
+        
+        private void setButton(Button b) {
+        
             if(optionsWidth != 0)
                    b.setY(y + (buttonCount / optionsWidth) * TILE_SIZE);
             b.setX(x + (buttonCount % 2) * (padding + TILE_SIZE) + padding);        // place button
             buttonCount++;
             menuButtons.add(b);
+            
         }
+        
 
         public void draw() {
 
