@@ -22,8 +22,8 @@ public class Editor {
 
     public Editor() {
 
-        this.grid = loadMap("C:\\Users\\Keith\\Documents\\NetBeansProjects\\game_tutorial\\NewMapToRead");
-    //    this.grid = loadMap("NewMapToRead");
+        this.grid = LoadMap("C:\\Users\\Keith\\Documents\\NetBeansProjects\\game_tutorial\\NewMapToRead");
+
         this.index = 0;
         
         this.types = new TileType[3];
@@ -37,7 +37,7 @@ public class Editor {
     private void setupUI() {
         
         editorUI = new UI();
-        editorUI.createMenu("TilePicker", 1280, 0, 192, 960, 2, 0);
+        editorUI.createMenu("TilePicker", 1280, 100, 192, 960, 2, 0);
         tilePickerMenu = editorUI.getMenu("TilePicker");
         tilePickerMenu.quickAdd("Grass", "grass");
         tilePickerMenu.quickAdd("Earth", "earth");
@@ -93,7 +93,7 @@ public class Editor {
                 moveIndex();
             }
             if (Keyboard.getEventKey() == Keyboard.KEY_S && Keyboard.getEventKeyState()) {
-                saveMap("NewMapToRead", grid);
+                SaveMap("NewMapToRead", grid);
                 System.out.println("S Key pressed");
             }
         }
@@ -102,6 +102,7 @@ public class Editor {
     
     private void draw() {
         
+        drawQuadTex(quickLoad("menu_background_editor"), 1280, 0, 192, 960);
         grid.draw();
         editorUI.draw();
     }

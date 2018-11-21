@@ -22,10 +22,10 @@ public class Game {
     private Menu towerPickerMenu;
     
     
-    public Game(int[][] map){
+    public Game(TileGrid grid){
         
-        grid = new TileGrid(map);
-        waveManager = new WaveManager(new Enemy(quickLoad("enemy"), grid.getTile(10, 8), grid, TILE_SIZE, TILE_SIZE, 70, 25), 2, 2);
+        this.grid = grid;
+        waveManager = new WaveManager(new Enemy(quickLoad("enemy"), grid.getTile(3, 8), grid, TILE_SIZE, TILE_SIZE, 70, 25), 2, 2);
         
         player = new Player(grid, waveManager);
         player.setup();
@@ -38,7 +38,7 @@ public class Game {
         gameUI = new UI();
 //        towerPickerUI.addButton("CannonBlue", "cannonBaseBlue", 0, 0);
 //        towerPickerUI.addButton("CannonIce", "cannonIceFull", 64, 0);
-        gameUI.createMenu("TowerPicker", 1280, 0, 192, 960, 2, 0);
+        gameUI.createMenu("TowerPicker", 1280, 100, 192, 960, 2, 0);
         towerPickerMenu = gameUI.getMenu("TowerPicker");
         towerPickerMenu.quickAdd("Blue Cannon", "cannonBlueFull");
         towerPickerMenu.quickAdd("Ice Cannon", "cannonIceFull");
@@ -66,7 +66,7 @@ public class Game {
     
     public void update() {
         
-        drawQuadTex(quickLoad("menuBackground"), 1280, 0, 192, 960);
+        drawQuadTex(quickLoad("menu_background2"), 1280, 0, 192, 960);
         grid.draw();
         waveManager.update();
         player.update();

@@ -16,7 +16,7 @@ import java.io.IOException;
  */
 public class Leveler {
 
-    public static void saveMap(String mapName, TileGrid grid) {
+    public static void SaveMap(String mapName, TileGrid grid) {
 
         String mapData = "";
 
@@ -59,7 +59,7 @@ public class Leveler {
         return type;
     }
 
-    public static TileGrid loadMap(String mapName) {
+    public static TileGrid LoadMap(String mapName) {
 
         TileGrid grid = new TileGrid();
 
