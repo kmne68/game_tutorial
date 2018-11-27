@@ -20,7 +20,6 @@ public class Player {
     public static int Funds, Lives;         // capitalized because they are static
     private Tower tempTower;
 
-    
     public Player(TileGrid grid, WaveManager waveManager) {
 
         this.grid = grid;
@@ -38,38 +37,35 @@ public class Player {
         Lives = 0;
     }
 
-    
+    // Check whehter player can afford the tower, if so process the transaction
     public static boolean modifyFunds(int amount) {
 
         if (Funds + amount >= 0) {
             Funds += amount;
             System.out.println("Funds: " + Funds);
-            
+
             return true;
-        }        
+        }
         System.out.println("Funds: " + Funds);
         return false;
     }
 
-    
     public static void modifyLives(int amount) {
 
         Lives += amount;
     }
 
-    
     // Initialize Cash and Lives values for player
     public void setup() {
         Funds = 200;
         Lives = 10;
     }
 
-    
     public void update() {
-        
+
         // Update holding tower
-        if(holdingTower) {
-            
+        if (holdingTower) {
+
             tempTower.setX(getMouseTile().getX());
             tempTower.setY(getMouseTile().getY());
             tempTower.draw();
@@ -84,7 +80,7 @@ public class Player {
 
         // Handle Mouse input
         if (Mouse.isButtonDown(0) && !leftMouseButtonDown) {
-           placeTower();
+            placeTower();
         }
         if (Mouse.isButtonDown(1) && !rightMouseButtonDown) {
 
@@ -106,29 +102,30 @@ public class Player {
             }
         }
     }
-    
-    
+
     private void placeTower() {
-        
-        if(holdingTower) {
-             if (modifyFunds(-tempTower.getCost())) {  // Only place this tower if we have at least the amount in parenthesis in funds
+
+        Tile currentTile = getMouseTile();
+
+        if (holdingTower) {
+            if (!currentTile.isOccupied() && modifyFunds(-tempTower.getCost())) {  // Only place this tower if we have at least the amount in parenthesis in funds
                 towerList.add(tempTower);
+                currentTile.setOccupied(true);
+                holdingTower = false;
+                tempTower = null;
             }
         }
-        holdingTower = false;
-        tempTower = null;
+
     }
-    
-    
+
     public void pickTower(Tower t) {
-        
+
         tempTower = t;
         holdingTower = true;
     }
-    
-    
+
     private Tile getMouseTile() {
-        
+
         return grid.getTile(Mouse.getX() / TILE_SIZE, (HEIGHT - Mouse.getY() - 1) / TILE_SIZE);
     }
 
