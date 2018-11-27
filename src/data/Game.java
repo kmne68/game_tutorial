@@ -4,7 +4,7 @@ import static helpers.Artist.quickLoad;
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.TILE_SIZE;
 import org.lwjgl.input.Mouse;
-import ui.Button;
+
 import ui.UI;
 import ui.UI.Menu;
 
@@ -25,7 +25,7 @@ public class Game {
     public Game(TileGrid grid){
         
         this.grid = grid;
-        waveManager = new WaveManager(new Enemy(quickLoad("enemy"), grid.getTile(3, 8), grid, TILE_SIZE, TILE_SIZE, 70, 25), 2, 2);
+        waveManager = new WaveManager(new Enemy(quickLoad("floatingEnemy"), grid.getTile(3, 8), grid, TILE_SIZE, TILE_SIZE, 70, 25), 2, 2);
         
         player = new Player(grid, waveManager);
         player.setup();
@@ -36,8 +36,6 @@ public class Game {
     private void setupUI() {
         
         gameUI = new UI();
-//        towerPickerUI.addButton("CannonBlue", "cannonBaseBlue", 0, 0);
-//        towerPickerUI.addButton("CannonIce", "cannonIceFull", 64, 0);
         gameUI.createMenu("TowerPicker", 1280, 100, 192, 960, 2, 0);
         towerPickerMenu = gameUI.getMenu("TowerPicker");
         towerPickerMenu.quickAdd("Blue Cannon", "cannonBlueFull");
