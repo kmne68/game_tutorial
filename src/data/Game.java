@@ -47,6 +47,8 @@ public class Game {
     private void updateUI() {
         
         gameUI.draw();
+        gameUI.drawString(1310, 400, "Lives: " + Player.Lives);
+        gameUI.drawString(1310, 500, "Cash: " + Player.Funds);
         
         if(Mouse.next()) {
             boolean mouseClicked = Mouse.isButtonDown(0);
