@@ -4,6 +4,7 @@ import static helpers.Artist.quickLoad;
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.TILE_SIZE;
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.opengl.Texture;
 
 import ui.UI;
 import ui.UI.Menu;
@@ -20,6 +21,7 @@ public class Game {
     private TowerCannonBlue blueTower;
     private UI gameUI;
     private Menu towerPickerMenu;
+    private Texture menuBackground;
     
     
     public Game(TileGrid grid){
@@ -29,6 +31,7 @@ public class Game {
         
         player = new Player(grid, waveManager);
         player.setup();
+        this.menuBackground = quickLoad("menu_background2");
         setupUI();
     }
     
@@ -66,7 +69,7 @@ public class Game {
     
     public void update() {
         
-        drawQuadTex(quickLoad("menu_background2"), 1280, 0, 192, 960);
+        drawQuadTex(menuBackground, 1280, 0, 192, 960);
         grid.draw();
         waveManager.update();
         player.update();
