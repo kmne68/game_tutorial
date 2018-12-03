@@ -55,11 +55,12 @@ public class StateManager {
             nextSecond += 1000;
             framesInLastSecond = framesInCurrentSecond;
             framesInCurrentSecond = 0;
+            
+            // System.out.println(framesInLastSecond + "fps" );
         }
         
         // increment frames with each call of update()
         framesInCurrentSecond++;
-        System.out.println(framesInLastSecond + "fps" );
     }
     
     

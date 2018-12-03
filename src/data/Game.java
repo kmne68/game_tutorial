@@ -3,6 +3,7 @@ package data;
 import static helpers.Artist.quickLoad;
 import static helpers.Artist.drawQuadTex;
 import static helpers.Artist.TILE_SIZE;
+import helpers.StateManager;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
 
@@ -50,8 +51,10 @@ public class Game {
     private void updateUI() {
         
         gameUI.draw();
-        gameUI.drawString(1310, 400, "Lives: " + Player.Lives);
-        gameUI.drawString(1310, 500, "Cash: " + Player.Funds);
+        gameUI.drawString(1310, 600, "Wave: " + waveManager.getWaveNumber());
+        gameUI.drawString(1310, 650, "Lives: " + Player.Lives);
+        gameUI.drawString(1310, 700, "Cash: " + Player.Funds);
+        gameUI.drawString(0, 0, StateManager.framesInLastSecond + " fps");
         
         if(Mouse.next()) {
             boolean mouseClicked = Mouse.isButtonDown(0);

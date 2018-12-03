@@ -51,4 +51,10 @@ public class WaveManager {
         return currentWave;
     }
 
+    
+    public int getWaveNumber() {
+        
+        return waveNumber;
+    }
+    
 }
