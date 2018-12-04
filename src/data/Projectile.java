@@ -79,6 +79,9 @@ public abstract class Projectile implements Entity {
 
         if (isBulletAlive) {
 
+            // The following method call provides projectile guidance. For unguided missiles, comment it out
+            calculateDirection();
+            
             x += xVelocity * speed * delta();
             y += yVelocity * speed * delta();
             if (checkCollision(x, y, width, height, target.getX(), target.getY(), target.getWidth(), target.getHeight())) {

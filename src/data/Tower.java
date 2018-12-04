@@ -48,7 +48,7 @@ public abstract class Tower implements Entity {
 
         // Go through each enemy in 'enemies' and return nearest one
         for (Enemy e : enemies) {
-            if (isInRange(e) && (findDistance(e) < closestDistance && e.isAlive())) {
+            if (isInRange(e) && (findDistance(e) < closestDistance && e.getHiddenHealth() > 0)) {
                 closestDistance = findDistance(e);
                 closest = e;
             }
@@ -65,6 +65,18 @@ public abstract class Tower implements Entity {
         double angleTemp = Math.atan2(target.getY() - y, target.getX() - x);
 
         return (float) Math.toDegrees(angleTemp) - 90;
+    }
+
+    
+    public void draw() {
+
+        drawQuadTex(textures[0], x, y, width, height);  // draw tower base
+        if (textures.length > 1) {
+            for (int i = 1; i < textures.length; i++) {
+
+                drawQuadTexRotate(textures[i], x, y, width, height, firingAngle);   // rotate subsequent textures (that are on top of base)
+            }
+        }
     }
 
     
@@ -102,7 +114,7 @@ public abstract class Tower implements Entity {
     
     public void update() {
 
-        if (!targeted) {
+        if (!targeted || target.getHiddenHealth() < 0) {
             target = acquireTarget();
         } else {
             firingAngle = calculateAngle();
@@ -124,18 +136,7 @@ public abstract class Tower implements Entity {
 
         draw();
     }
-
     
-    public void draw() {
-
-        drawQuadTex(textures[0], x, y, width, height);  // draw tower base
-        if (textures.length > 1) {
-            for (int i = 1; i < textures.length; i++) {
-
-                drawQuadTexRotate(textures[i], x, y, width, height, firingAngle);   // rotate subsequent textures (that are on top of base)
-            }
-        }
-    }
 
     public float getX() {
         return x;
