@@ -25,6 +25,37 @@ public class Enemy implements Entity {
 
     private ArrayList<Checkpoint> checkpoints;
     private int[] directions;
+    
+    
+    // Default constructor
+    public Enemy(int tileX, int tileY, TileGrid grid) {
+        
+        this.texture = quickLoad("floatingEnemy");
+        this.healthBackground = quickLoad("healthBackground");
+        this.healthForeground = quickLoad("healthForeground");
+        this.healthBorder = quickLoad("healthBorder");      
+        this.startTile = grid.getTile(tileX, tileY);
+        this.x = startTile.getX();
+        this.y = startTile.getY();
+        this.width = TILE_SIZE;
+        this.height = TILE_SIZE;
+        this.speed = 50;
+        this.health = 50;
+        this.startHealth = health;
+        this.hiddenHealth = health;
+        this.grid = grid;
+        this.first = true;
+        this.alive = true;
+        this.checkpoints = new ArrayList<Checkpoint>();
+        this.directions = new int[2];
+        this.directions[0] = 0;     // x direction
+        this.directions[1] = 0;     // y direction
+        this.currentCheckpoint = 0;
+        directions = findNextDirection(startTile);
+        this.currentCheckpoint = 0;
+        populateCheckpointList();
+    }
+    
 
     public Enemy(Texture texture, Tile startTile, TileGrid grid, int width, int height, float speed, float health) {
 

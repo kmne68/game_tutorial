@@ -10,13 +10,13 @@ public class WaveManager {
     private float timeBetweenEnemies;
     private int waveNumber;
     private int enemiesPerWave;
-    private Enemy enemyType;
+    private Enemy[] enemyTypes;
     private Wave currentWave;
     
     
-    public WaveManager(Enemy enemyType, float timeBetweenEnemies, int enemiesPerWave) {
+    public WaveManager(Enemy[] enemyTypes, float timeBetweenEnemies, int enemiesPerWave) {
         
-        this.enemyType = enemyType;
+        this.enemyTypes = enemyTypes;
         this.enemiesPerWave = enemiesPerWave;
         this.timeBetweenEnemies = timeBetweenEnemies;
         this.timeSinceLastWave = 0;
@@ -40,7 +40,7 @@ public class WaveManager {
     
     private void newWave() {
         
-        currentWave = new Wave(enemyType, timeBetweenEnemies, enemiesPerWave);
+        currentWave = new Wave(enemyTypes, timeBetweenEnemies, enemiesPerWave);
         waveNumber++;
         System.out.println("Beginning wave: " + waveNumber);
     }
