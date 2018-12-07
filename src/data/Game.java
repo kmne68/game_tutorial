@@ -29,9 +29,10 @@ public class Game {
     public Game(TileGrid grid){
         
         this.grid = grid;
-        enemyTypes = new Enemy[2];
+        enemyTypes = new Enemy[3];
         enemyTypes[0] = new EnemyAlien(2, 0, grid);
         enemyTypes[1] = new EnemyUFO(2, 0, grid);
+        enemyTypes[2] = new EnemyPlane(2, 0, grid);
         /*
         waveManager = new WaveManager(new Enemy(quickLoad("floatingEnemy"), grid.getTile(3, 8), grid, TILE_SIZE, TILE_SIZE, 70, 25), 2, 2);
         */

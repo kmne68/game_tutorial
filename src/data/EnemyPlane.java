@@ -9,12 +9,11 @@ package data;
  *
  * @author kmne68
  */
-public class EnemyUFO extends Enemy {
+public class EnemyPlane extends Enemy {
     
-    public EnemyUFO(int tileX, int tileY, TileGrid grid) {
+    public EnemyPlane(int tileX, int tileY, TileGrid grid) {
         super(tileX, tileY, grid);
-        this.setTexture("enemy");
-        this.setSpeed(80);
+        this.setTexture("enemyPlane");
     }
     
 }

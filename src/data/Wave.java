@@ -2,6 +2,7 @@ package data;
 
 import static helpers.Clock.*;
 import static helpers.Artist.*;
+import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -59,7 +60,12 @@ public class Wave {
 
     private void spawn() {
 
-        enemyList.add(new Enemy(enemyTypes[0].getTexture(), enemyTypes[0].getStartTile(), enemyTypes[0].getTileGrid(), TILE_SIZE, TILE_SIZE, enemyTypes[0].getSpeed(), enemyTypes[0].getHealth()));
+        int selectedEnemy = 0;
+        Random random = new Random();
+        
+        selectedEnemy = random.nextInt(enemyTypes.length);
+        
+        enemyList.add(new Enemy(enemyTypes[selectedEnemy].getTexture(), enemyTypes[selectedEnemy].getStartTile(), enemyTypes[selectedEnemy].getTileGrid(), TILE_SIZE, TILE_SIZE, enemyTypes[selectedEnemy].getSpeed(), enemyTypes[selectedEnemy].getHealth()));
         enemiesSpawned++;
     }
 
